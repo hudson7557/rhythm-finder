@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rhythm Finder</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script type= "text/javascript" src="JS/saved_songs.js"></script>
 </head>
 <body>
 
@@ -25,6 +26,26 @@
             <li class="nav-item">
               <a class="nav-link" href="add_music.html">Add Music</a>
             </li>
+            <li class="nav-item">
+              <div class="btn-group">
+                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Table views
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="albums_table.html">albums</a>
+                  <a class="dropdown-item" href="artists_table.html">artists</a>
+                  <a class="dropdown-item" href="genres_table.html">genres</a>
+                  <a class="dropdown-item" href="songs_table.html">songs</a>
+                  <a class="dropdown-item" href="album_genre.html">albumGenre</a>
+                  <a class="dropdown-item" href="artist_genre.html">artistGenre</a>
+                  <a class="dropdown-item" href="song_artists.html">songArtist</a>
+                  <a class="dropdown-item" href="song_genre.html">songGenre</a>
+                  <a class="dropdown-item" href="user_table.html">users</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Separated link</a>
+                </div>
+              </div>
+            </li>
           </ul>
           <ul class="navbar-nav">
               <li class="nav-item">
@@ -38,7 +59,42 @@
     </nav>
 
     <div class="container">
-        Hello, world!
+
+      <h3>Here you can view your saved songs and update or delete them as necessary.</h3>
+      <p>Once we have a db this will be populated by querying the database and creating table rows dynamically.
+      It'll also be styled to some extent to improve readability.</p>
+
+      <br>
+
+      <table id="mucisTable">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Genre</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody id="musicBody">
+          <tr>
+            <td>Light Up</td>
+            <td>Moon Taxi</td>
+            <td>Light Up</td>
+            <td>Indie Rock</td>
+            <td><button>Update</button></td>
+            <td><button>Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br>
+      
+      <p>For update we may have it edit the cells of the table or edit in a modal, depends on how we want to implement it.
+        Delete will remove the cell and likely trigger the page to reload. 
+      </p>
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
