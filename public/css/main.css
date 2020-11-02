@@ -1,0 +1,12 @@
+body {
+    background-color: grey;
+    color: black;
+}
+
+.header {
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(73, 84, 100, .8);
+    text-align: center;
+    color: white;
+}
