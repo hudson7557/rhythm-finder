@@ -16,8 +16,8 @@ var settings = function(app) {
     app.set("views", path.join(process.cwd(), "/public/views"));
 
     app.use("/", require("../api/main"));
-    // app.use("/music", require("../api/music"));
-    // app.use("/account", require("../api/account"));
+    app.use("/music", require("../api/music"));
+    app.use("/account", require("../api/account"));
 
     app.use(handleError404);
     app.use(handleError500);
