@@ -1,21 +1,12 @@
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*
+-- Query to delete M:M tables
+DROP TABLES songs_genres, songs_artists, users_songs, artists_genres, albums_genres
+DROP TABLE songs
+DROP TABLES genres, artists, users, albums.
+*/
 
+-- New database definition 
 
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
@@ -28,10 +19,9 @@ CREATE TABLE `users` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `albums`
+-- Creating the albums table
 --
 
-DROP TABLE IF EXISTS `albums`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `albums` (
@@ -41,37 +31,11 @@ CREATE TABLE `albums` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `albums`
---
-
-LOCK TABLES `albums` WRITE;
-/*!40000 ALTER TABLE `albums` DISABLE KEYS */;
-INSERT INTO `albums` VALUES
-    (1,'Magical Mystery Tour'),
-    (2,'After Hours'),
-    (3,'Made in California');
-/*!40000 ALTER TABLE `albums` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
--- Dumping data for table `bsg_planets`
+-- Creating the songs table
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES
-    (NUll, 'Marissa','marissa@email.com','password123'),
-    (NUll, 'Scott','scott@email.com','password456'),
-    (NUll, 'Erin','erin@email.com','password789');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `songs`
---
-
-DROP TABLE IF EXISTS `songs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `songs` (
@@ -83,24 +47,11 @@ CREATE TABLE `songs` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `songs`
---
-
-LOCK TABLES `songs` WRITE;
-/*!40000 ALTER TABLE `songs` DISABLE KEYS */;
-INSERT INTO `songs` VALUES
-    (NULL,'Strawberry Fields Forever',1), 
-    (NULL,'Blinding Lights',2),
-    (NULL,'Kokomo',3);
-/*!40000 ALTER TABLE `songs` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
--- Table structure for table `albums`
---
+-- Creating the artists table
+-- 
 
-DROP TABLE IF EXISTS `artists`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `artists` (
@@ -110,24 +61,11 @@ CREATE TABLE `artists` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `artists`
---
-
-LOCK TABLES `artists` WRITE;
-/*!40000 ALTER TABLE `artists` DISABLE KEYS */;
-INSERT INTO `artists` VALUES
-    (1,'The Beatles'),
-    (2,'The Weeknd'),
-    (3,'The Beach Boys');
-/*!40000 ALTER TABLE `artists` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
--- Table structure for table `genres`
---
+-- Creating the genres table
+-- 
 
-DROP TABLE IF EXISTS `genres`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `genres` (
@@ -158,10 +96,9 @@ INSERT INTO `genres` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `song-artists`
+-- Table structure for table `users_songs`
 --
 
-DROP TABLE IF EXISTS `users_songs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users_songs` (
@@ -176,10 +113,9 @@ CREATE TABLE `users_songs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `song-artists`
+-- Table structure for table `songs-artists`
 --
 
-DROP TABLE IF EXISTS `songs_artists`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `songs_artists` (
@@ -198,7 +134,6 @@ CREATE TABLE `songs_artists` (
 -- Table structure for table `albums_genres`
 --
 
-DROP TABLE IF EXISTS `albums_genres`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `albums_genres` (
@@ -216,7 +151,6 @@ CREATE TABLE `albums_genres` (
 -- Table structure for table `artists_genres`
 --
 
-DROP TABLE IF EXISTS `artists_genres`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `artists_genres` (
@@ -234,25 +168,15 @@ CREATE TABLE `artists_genres` (
 -- Table structure for table `artists_genres`
 --
 
-DROP TABLE IF EXISTS `songs_genres`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `songs_genres` (
   `songId` int(11) NOT NULL,
   `genreId` int(11) NOT NULL,
-  FOREIGN KEY (`songsId`) 
+  FOREIGN KEY (`songId`) 
     REFERENCES `songs`(`songId`)
     ON DELETE CASCADE,
   FOREIGN KEY (`genreId`) 
     REFERENCES `genres`(`genreId`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
