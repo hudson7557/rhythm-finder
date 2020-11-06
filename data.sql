@@ -155,6 +155,97 @@ INSERT INTO `genres` VALUES
 /*!40000 ALTER TABLE `genres` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `song-artists`
+--
+
+DROP TABLE IF EXISTS `users_songs`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users_songs` (
+  `songId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  FOREIGN KEY (`songId`) 
+    REFERENCES `songs`(`songId`)
+    ON DELETE CASCADE,
+  FOREIGN KEY (`userId`) 
+    REFERENCES `users`(`userId`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `song-artists`
+--
+
+DROP TABLE IF EXISTS `songs_artists`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `songs_artists` (
+  `songId` int(11) NOT NULL,
+  `artistId` int(11) NOT NULL,
+  FOREIGN KEY (`songId`) 
+    REFERENCES `songs`(`songId`)
+    ON DELETE CASCADE,
+  FOREIGN KEY (`artistId`) 
+    REFERENCES `artists`(`artistId`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `albums_genres`
+--
+
+DROP TABLE IF EXISTS `albums_genres`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `albums_genres` (
+  `albumId` int(11) NOT NULL,
+  `genreId` int(11) NOT NULL,
+  FOREIGN KEY (`albumId`) 
+    REFERENCES `albums`(`albumId`)
+    ON DELETE CASCADE,
+  FOREIGN KEY (`genreId`) 
+    REFERENCES `genres`(`genreId`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `artists_genres`
+--
+
+DROP TABLE IF EXISTS `artists_genres`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `artists_genres` (
+  `artistId` int(11) NOT NULL,
+  `genreId` int(11) NOT NULL,
+  FOREIGN KEY (`artistId`) 
+    REFERENCES `artists`(`artistId`)
+    ON DELETE CASCADE,
+  FOREIGN KEY (`genreId`) 
+    REFERENCES `genres`(`genreId`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `artists_genres`
+--
+
+DROP TABLE IF EXISTS `songs_genres`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `songs_genres` (
+  `songId` int(11) NOT NULL,
+  `genreId` int(11) NOT NULL,
+  FOREIGN KEY (`songId`) 
+    REFERENCES `songs`(`songId`)
+    ON DELETE CASCADE,
+  FOREIGN KEY (`genreId`) 
+    REFERENCES `genres`(`genreId`)
+    ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
