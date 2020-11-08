@@ -27,6 +27,9 @@
           <a class="nav-link" href="add_music.html">Add Music</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="profile.html">My Profile</a>
+        </li>
+        <li class="nav-item">
           <div class="btn-group">
             <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Table views
@@ -58,22 +61,28 @@
   </nav>
 
     <div class="container">
+      
+      <br>
+      <h3>To add a song you must include a song and artist name, the genre and album are optional.</h3>
+      <br>
+
       <form action="#" method="post">
-          Aritst: &nbsp; <input type="text" name="artist" id="artist" required>
-          Album: &nbsp; <input type="text" name="album" id="album">
-          Song: &nbsp; <input type="text" name="album" id="song" required>
-          Genre: <select name="genre" id="genre-select">
-            <option value="" disable selected>--Please choose an option--</option>
-            <option value="pop">Pop</option>
-            <option value="Hip-hop">Hip-hop</option>
-            <option value="Rap">Rap</option>
-            <option value="Rock">Rock</option>
-            <option value="Dance and Electronic">Dance and Electronic</option>
-            <option value="Indie">Indie Rock</option>
-            <option value="Alt">Alternative Rock</option>
-            <option value="Country">Country</option>
-            <option value="Classical">Classical</option>
-            <option value="Pirate Metal">Pirate Metal</option>
+
+        Song: &nbsp; <input type="text" name="album" id="song" required>
+        Aritst: &nbsp; <input type="text" name="artist" id="artist" required>
+        Album: &nbsp; <input type="text" name="album" id="album" placeholder="Optional">
+        Genre: <select name="genre" id="genre-select">
+          <option value="" disable selected>--Optional--</option>
+          <option value="pop">Pop</option>
+          <option value="Hip-hop">Hip-hop</option>
+          <option value="Rap">Rap</option>
+          <option value="Rock">Rock</option>
+          <option value="Dance and Electronic">Dance and Electronic</option>
+          <option value="Indie">Indie Rock</option>
+          <option value="Alt">Alternative Rock</option>
+          <option value="Country">Country</option>
+          <option value="Classical">Classical</option>
+          <option value="Pirate Metal">Pirate Metal</option>
         </select>
           <input type="submit" value="Add Song">
       </form>

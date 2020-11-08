@@ -27,6 +27,9 @@
           <a class="nav-link" href="add_music.html">Add Music</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="profile.html">My Profile</a>
+        </li>
+        <li class="nav-item">
           <div class="btn-group">
             <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Table views
@@ -64,6 +67,11 @@
       It'll also be styled to some extent to improve readability.</p>
 
       <br>
+      <form action="#" method="post">
+        Search by song name: &nbsp; <input type="text" name="song" id="songSearch" required>
+        <input type="submit" value="Search">
+      </form>
+      <br>
 
       <table id="mucisTable">
         <thead>
@@ -72,7 +80,6 @@
             <th>Artist</th>
             <th>Album</th>
             <th>Genre</th>
-            <th>Update</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -82,7 +89,6 @@
             <td>Moon Taxi</td>
             <td>Light Up</td>
             <td>Indie Rock</td>
-            <td><button>Update</button></td>
             <td><button>Delete</button></td>
           </tr>
         </tbody>
