@@ -1,0 +1,44 @@
+<div class="container my-3">
+
+      <h3>Here you can view your saved songs and update or delete them as necessary.</h3>
+      <p>Once we have a db this will be populated by querying the database and creating table rows dynamically.
+      It'll also be styled to some extent to improve readability.</p>
+
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <br>
+          <form action="#" method="post">
+            Search by song name: &nbsp; <input type="text" name="song" id="songSearch" required>
+            <input type="submit" value="Search">
+          </form>
+          <br>
+          <table id="mucisTable">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Artist</th>
+                <th>Album</th>
+                <th>Genre</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody id="musicBody">
+              <tr>
+                <td>Light Up</td>
+                <td>Moon Taxi</td>
+                <td>Light Up</td>
+                <td>Indie Rock</td>
+                <td class="table-btn"><button class="btn btn-danger">Delete</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <br>
+      
+      <p>For update we may have it edit the cells of the table or edit in a modal, depends on how we want to implement it.
+        Delete will remove the cell and likely trigger the page to reload. 
+      </p>
+
+    </div>

@@ -13,7 +13,7 @@ router.route("/music")
 
 router.route("/profile")
     .get(function(req, res) {
-        res.render("profile");
+        res.render("user-profile");
     });
 
 module.exports = router;
