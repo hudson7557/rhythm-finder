@@ -1,0 +1,23 @@
+<div class="row my-4">
+    <div class="col-md-8 offset-md-2 text-center">
+
+        <h3>{{header}}</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th hidden>User Id</th>
+                    <th>User Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each items}}
+                <tr>
+                    <td hidden>{{userId}}</td>
+                    <td>{{userName}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

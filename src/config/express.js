@@ -17,7 +17,7 @@ var settings = function(app) {
 
     app.use("/", require("../api/main"));
     app.use("/music", require("../api/music"));
-    app.use("/account", require("../api/account"));
+    app.use("/user", require("../api/user"));
 
     app.use(handleError404);
     app.use(handleError500);
