@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rhythm Finder</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script type= "text/javascript" src="JS/saved_songs.js"></script>
 </head>
 <body>
 
@@ -59,14 +60,36 @@
     </div>
   </nav>
 
-    <div class="container my-3">
-        <form action="#" method="post">
-            First Name: <P></P> <input type="text" name="name"> <P></P>
-            Email:  <P></P> <input type="email" name="email"> <P></P>
-            Password:  <P></P> <input type="password" name="password"> <P></P>
-            <input type="submit" value="Sign Up">
-        </form>
+    <div class="container">
+
+      <h3>Here you can view and update your account information.</h3>
+
+      <table id="userTable">
+        <thead>
+          <tr>
+            <th>User Id</th>
+            <th>User Name</th>
+            <th>User Email</th>
+            <th>Number of Saved Songs</th>
+          </tr>
+        </thead>
+        <tbody id="userBody">
+          <tr>
+            <td>7447</td>
+            <td>hudsonsc</td>
+            <td>hudsonsc@orgegonstate.edu</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <form action="#" method="post">
+        Update Email: &nbsp; <input type="text" name="email" id="emailUpdate" required>
+        <input type="submit" value="Update">
+      </form>
+
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
