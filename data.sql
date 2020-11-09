@@ -55,7 +55,7 @@ INSERT INTO `albums` VALUES
 UNLOCK TABLES;
 
 --
--- Dumping data for table `bsg_planets`
+-- Dumping data for table `users`
 --
 
 LOCK TABLES `users` WRITE;
@@ -240,7 +240,7 @@ DROP TABLE IF EXISTS `songs_genres`;
 CREATE TABLE `songs_genres` (
   `songId` int(11) NOT NULL,
   `genreId` int(11) NOT NULL,
-  FOREIGN KEY (`songsId`) 
+  FOREIGN KEY (`songId`) 
     REFERENCES `songs`(`songId`)
     ON DELETE CASCADE,
   FOREIGN KEY (`genreId`) 
