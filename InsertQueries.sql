@@ -98,6 +98,7 @@ INSERT INTO `songs_genres` VALUES (@songId, @genreId); -- songs_genres completed
 -- Insert into album genres next
 INSERT INTO `albums_genres` VALUES (@albumId, @genreId); -- albums_genres completed
 INSERT INTO `songs_artists` VALUES (@songId, @artistId); -- songs_albums completed
+INSERT INTO `users_song` VALUE ((SELECT userId FROM users WHERE Name = "Scott"), @songId) -- CHECK TO MAKE SURE THIS IS CORRECT 
 
 -- 
 -- Query to view a complete song entity which has the song name, artist name, album name, and genre
@@ -108,3 +109,4 @@ SELECT t3.songName, t1.artistName, t6.albumName, t5.genreName FROM artists AS t1
     JOIN albums_genres AS t4 ON t3.songAlbum = t4.albumId 
     JOIN genres AS t5 ON t4.genreId = t5.genreId 
     JOIN albums AS t6 ON t3.songAlbum = t6.albumId;
+    -- Add a relationship to users_songs.
