@@ -13,10 +13,8 @@ table {
     margin: 2em;
 }
 td {
-    border: 1px solid black;
-}
-.table-btn {
-    border: 0px;
+    border-top: 1px solid rgba(73, 84, 100, .5);
+    border-bottom: 1px solid rgba(73, 84, 100, .5);
 }
 input {
     border: 1px solid rgba(150, 150, 150, 0.5);

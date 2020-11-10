@@ -1,27 +1,29 @@
-<div class="row my-4">
-    <div class="col-md-8 offset-md-2 text-center">
+<div class="container my-4">
+    <div class="row">
+        <div class="mx-auto text-center">
 
-        <h3>{{header}}</h3>
+            <h3>{{header}}</h3>
 
-        <table>
-            <thead>
-                <tr>
-                    <th hidden>Song Id</th>
-                    <th>Song Name</th>
-                    <th>Song Album</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="musicBody">
-                {{#each items}}
-                <tr>
-                    <td hidden>{{songId}}</td>
-                    <td>{{songName}}</td>
-                    <td>{{songAlbum}}</td>
-                    <td class="table-btn"><button class="btn btn-small btn-primary">Favorite</button></td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th hidden>Song Id</th>
+                        <th>Song Name</th>
+                        <th>Song Album</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="musicBody">
+                    {{#each items}}
+                    <tr>
+                        <td hidden>{{songId}}</td>
+                        <td>{{songName}}</td>
+                        <td>{{songAlbum}}</td>
+                        <td class="table-btn"><button class="btn btn-small btn-primary">Favorite</button></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
