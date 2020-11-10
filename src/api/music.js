@@ -3,35 +3,35 @@ var router = express.Router();
 var SongServices = require("../services/song");
 
 router.route("/")
-    .get(function(req, res, next) {
+    .get((req, res, next) => {
         SongServices.getAllSongs()
             .then((result) => {
                 console.log("get all songs: ");
                 console.log(result);
                 res.render("all-music", { "items": result, "header": "All Songs" });
             })
-            .catch(function(err) {
+            .catch((err) => {
                 next(err);
             });
 })
 
 router.route("/add")
-    .get(function(req, res) {
+    .get((req, res) => {
         res.render("add-music");
     });
 
 router.route("/artists")
-    .get(function(req, res) {
+    .get((req, res) => {
         res.render("all-music");
     });
 
 router.route("/albums")
-    .get(function(req, res) {
+    .get((req, res) => {
         res.render("all-music");
     });
 
 router.route("/genres")
-    .get(function(req, res) {
+    .get((req, res) => {
         res.render("all-music");
     });
 

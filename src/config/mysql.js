@@ -12,9 +12,9 @@ var connectionConfig = {
 
 var pool = mysql.createConnection(connectionConfig);
 
-var connection = function() {
-    return new Promise(function(resolve, reject) {
-        pool.connect(function(err) {
+var connection = () => {
+    return new Promise((resolve, reject) => {
+        pool.connect((err) => {
             if (err) {
                 reject(err);
             }
@@ -23,9 +23,9 @@ var connection = function() {
     });
 };
 
-var query = function(query, data) {
-    return new Promise(function(resolve, reject) {
-        pool.query(query, data, function(err, result) {
+var query = (query, data) => {
+    return new Promise((resolve, reject) => {
+        pool.query(query, data, (err, result) => {
             if (err) {
                 reject(err);
             }

@@ -7,7 +7,7 @@ var bodyParser = require("body-parser");
 var path = require("path");
 var config = require("./config");
 
-var settings = function(app) {
+var settings = (app) => {
     app.use(bodyParser.urlencoded({ "extended": true }));
     app.use(bodyParser.json());
     app.use(express.static(path.join(process.cwd(), "/public")));
