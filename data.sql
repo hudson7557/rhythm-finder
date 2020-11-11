@@ -10,15 +10,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-
 --
--- Table structure for table `users`
+-- Table structure for table `Users`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `Users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
+CREATE TABLE `Users` (
   `userId` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
   `userName` varchar(255) NOT NULL,
   `userEmail` varchar(255) UNIQUE NOT NULL,
@@ -28,13 +27,27 @@ CREATE TABLE `users` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `albums`
+-- Dumping data for table `Users`
 --
 
-DROP TABLE IF EXISTS `albums`;
+LOCK TABLES `Users` WRITE;
+/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
+INSERT INTO `Users` VALUES
+    (NUll, 'Marissa','marissa@email.com','password123'),
+    (NUll, 'Scott','scott@email.com','password456'),
+    (NUll, 'Erin','erin@email.com','password789');
+/*!40000 ALTER TABLE `Users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Table structure for table `Albums`
+--
+
+DROP TABLE IF EXISTS `Albums`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `albums` (
+CREATE TABLE `Albums` (
   `albumId` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
   `albumName` varchar(255) NOT NULL,
   PRIMARY KEY (`albumId`)
@@ -42,68 +55,57 @@ CREATE TABLE `albums` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `albums`
+-- Dumping data for table `Albums`
 --
 
-LOCK TABLES `albums` WRITE;
-/*!40000 ALTER TABLE `albums` DISABLE KEYS */;
-INSERT INTO `albums` VALUES
+LOCK TABLES `Albums` WRITE;
+/*!40000 ALTER TABLE `Albums` DISABLE KEYS */;
+INSERT INTO `Albums` VALUES
     (1,'Magical Mystery Tour'),
     (2,'After Hours'),
     (3,'Made in California');
-/*!40000 ALTER TABLE `albums` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Albums` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES
-    (NUll, 'Marissa','marissa@email.com','password123'),
-    (NUll, 'Scott','scott@email.com','password456'),
-    (NUll, 'Erin','erin@email.com','password789');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
--- Table structure for table `songs`
+-- Table structure for table `Songs`
 --
 
-DROP TABLE IF EXISTS `songs`;
+DROP TABLE IF EXISTS `Songs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `songs` (
+CREATE TABLE `Songs` (
   `songId` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
   `songName` varchar(255) NOT NULL,
   `songAlbum` int(11), 
   PRIMARY KEY (`songId`),
-  FOREIGN KEY (`songAlbum`) REFERENCES `albums` (`albumId`)
+  FOREIGN KEY (`songAlbum`) REFERENCES `Albums` (`albumId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `songs`
+-- Dumping data for table `Songs`
 --
 
-LOCK TABLES `songs` WRITE;
-/*!40000 ALTER TABLE `songs` DISABLE KEYS */;
-INSERT INTO `songs` VALUES
+LOCK TABLES `Songs` WRITE;
+/*!40000 ALTER TABLE `Songs` DISABLE KEYS */;
+INSERT INTO `Songs` VALUES
     (NULL,'Strawberry Fields Forever',1), 
     (NULL,'Blinding Lights',2),
     (NULL,'Kokomo',3);
-/*!40000 ALTER TABLE `songs` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Songs` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 --
--- Table structure for table `albums`
+-- Table structure for table `Artists`
 --
 
-DROP TABLE IF EXISTS `artists`;
+DROP TABLE IF EXISTS `Artists`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `artists` (
+CREATE TABLE `Artists` (
   `artistId` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
   `artistName` varchar(255) NOT NULL,
   PRIMARY KEY (`artistId`)
@@ -111,26 +113,27 @@ CREATE TABLE `artists` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `artists`
+-- Dumping data for table `Artists`
 --
 
-LOCK TABLES `artists` WRITE;
-/*!40000 ALTER TABLE `artists` DISABLE KEYS */;
-INSERT INTO `artists` VALUES
+LOCK TABLES `Artists` WRITE;
+/*!40000 ALTER TABLE `Artists` DISABLE KEYS */;
+INSERT INTO `Artists` VALUES
     (1,'The Beatles'),
     (2,'The Weeknd'),
     (3,'The Beach Boys');
-/*!40000 ALTER TABLE `artists` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Artists` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 --
--- Table structure for table `genres`
+-- Table structure for table `Genres`
 --
 
-DROP TABLE IF EXISTS `genres`;
+DROP TABLE IF EXISTS `Genres`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `genres` (
+CREATE TABLE `Genres` (
   `genreId` int(11) UNIQUE NOT NULL AUTO_INCREMENT,
   `genreName` varchar(255) NOT NULL,
   PRIMARY KEY (`genreId`)
@@ -138,12 +141,12 @@ CREATE TABLE `genres` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `genres`
+-- Dumping data for table `Genres`
 --
 
-LOCK TABLES `genres` WRITE;
-/*!40000 ALTER TABLE `genres` DISABLE KEYS */;
-INSERT INTO `genres` VALUES
+LOCK TABLES `Genres` WRITE;
+/*!40000 ALTER TABLE `Genres` DISABLE KEYS */;
+INSERT INTO `Genres` VALUES
     (1,'Pop'),
     (2,'Hip-hop'),
     (3,'Rap'),
@@ -154,61 +157,62 @@ INSERT INTO `genres` VALUES
     (8,'Country'),
     (9,'Classical'),
     (10,'Pirate Metal');
-/*!40000 ALTER TABLE `genres` ENABLE KEYS */;
+/*!40000 ALTER TABLE `Genres` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 --
--- Table structure for table `song-artists`
+-- Table structure for table `UsersSongs`
 --
 
-DROP TABLE IF EXISTS `users_songs`;
+DROP TABLE IF EXISTS `UsersSongs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users_songs` (
+CREATE TABLE `UsersSongs` (
   `songId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   FOREIGN KEY (`songId`) 
-    REFERENCES `songs`(`songId`)
+    REFERENCES `Songs`(`songId`)
     ON DELETE CASCADE,
   FOREIGN KEY (`userId`) 
-    REFERENCES `users`(`userId`)
+    REFERENCES `Users`(`userId`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `song-artists`
+-- Table structure for table `SongsArtists`
 --
 
-DROP TABLE IF EXISTS `songs_artists`;
+DROP TABLE IF EXISTS `SongsArtists`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `songs_artists` (
+CREATE TABLE `SongsArtists` (
   `songId` int(11) NOT NULL,
   `artistId` int(11) NOT NULL,
   FOREIGN KEY (`songId`) 
-    REFERENCES `songs`(`songId`)
+    REFERENCES `Songs`(`songId`)
     ON DELETE CASCADE,
   FOREIGN KEY (`artistId`) 
-    REFERENCES `artists`(`artistId`)
+    REFERENCES `Artists`(`artistId`)
     ON DELETE CASCADE,
   PRIMARY KEY (`songId`, `artistId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `albums_genres`
+-- Table structure for table `AlbumsGenres`
 --
 
-DROP TABLE IF EXISTS `albums_genres`;
+DROP TABLE IF EXISTS `AlbumsGenres`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `albums_genres` (
+CREATE TABLE `AlbumsGenres` (
   `albumId` int(11) NOT NULL,
   `genreId` int(11) NOT NULL,
   FOREIGN KEY (`albumId`) 
-    REFERENCES `albums`(`albumId`)
+    REFERENCES `Albums`(`albumId`)
     ON DELETE CASCADE,
   FOREIGN KEY (`genreId`) 
-    REFERENCES `genres`(`genreId`)
+    REFERENCES `Genres`(`genreId`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -216,35 +220,36 @@ CREATE TABLE `albums_genres` (
 -- Table structure for table `artists_genres`
 --
 
-DROP TABLE IF EXISTS `artists_genres`;
+DROP TABLE IF EXISTS `ArtistsGenres`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `artists_genres` (
+CREATE TABLE `ArtistsGenres` (
   `artistId` int(11) NOT NULL,
   `genreId` int(11) NOT NULL,
   FOREIGN KEY (`artistId`) 
-    REFERENCES `artists`(`artistId`)
+    REFERENCES `Artists`(`artistId`)
     ON DELETE CASCADE,
   FOREIGN KEY (`genreId`) 
-    REFERENCES `genres`(`genreId`)
+    REFERENCES `Genres`(`genreId`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+
 --
--- Table structure for table `artists_genres`
+-- Table structure for table `SongsGenres`
 --
 
-DROP TABLE IF EXISTS `songs_genres`;
+DROP TABLE IF EXISTS `SongsGenres`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `songs_genres` (
+CREATE TABLE `SongsGenres` (
   `songId` int(11) NOT NULL,
   `genreId` int(11) NOT NULL,
   FOREIGN KEY (`songId`) 
-    REFERENCES `songs`(`songId`)
+    REFERENCES `Songs`(`songId`)
     ON DELETE CASCADE,
   FOREIGN KEY (`genreId`) 
-    REFERENCES `genres`(`genreId`)
+    REFERENCES `Genres`(`genreId`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
