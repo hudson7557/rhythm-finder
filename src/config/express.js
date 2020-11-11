@@ -10,7 +10,7 @@ var config = require("./config");
 var settings = (app) => {
     app.use(bodyParser.urlencoded({ "extended": true }));
     app.use(bodyParser.json());
-    app.use(express.static(path.join(process.cwd(), "/public")));
+    app.use(express.static(path.join(process.cwd(), "./public")));
     app.engine("handlebars", handlebars.engine);
     app.set("view engine", "handlebars");
     app.set("views", path.join(process.cwd(), "/public/views"));

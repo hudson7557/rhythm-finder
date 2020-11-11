@@ -1,4 +1,4 @@
-var UserModel = require("../models/User");
+var UserModel = require("../models/user");
 var UserServices = {};
 
 UserServices.getAllUsers = () => {
