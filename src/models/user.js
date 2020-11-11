@@ -13,7 +13,7 @@ function getQuery(type) {
     var query = "";
     switch(type) {
         case "allUsers":
-            query = "SELECT * FROM users;"
+            query = "SELECT * FROM Users;"
             break;
         }
 

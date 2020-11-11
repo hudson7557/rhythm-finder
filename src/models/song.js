@@ -13,7 +13,7 @@ function getQuery(type) {
     var query = "";
     switch(type) {
         case "allSongs":
-            query = "SELECT * FROM songs;"
+            query = "SELECT * FROM Songs;"
             break;
         }
 
