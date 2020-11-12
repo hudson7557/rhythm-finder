@@ -180,6 +180,20 @@ CREATE TABLE `UsersSongs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `UsersSongs`
+--
+
+LOCK TABLES `UsersSongs` WRITE;
+/*!40000 ALTER TABLE `UsersSongs` DISABLE KEYS */;
+INSERT INTO `UsersSongs` VALUES
+    (1,3),
+    (2,2),
+    (3,1);
+/*!40000 ALTER TABLE `UsersSongs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
 -- Table structure for table `SongsArtists`
 --
 
@@ -197,6 +211,20 @@ CREATE TABLE `SongsArtists` (
     ON DELETE CASCADE,
   PRIMARY KEY (`songId`, `artistId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `SongsArtists`
+--
+
+LOCK TABLES `SongsArtists` WRITE;
+/*!40000 ALTER TABLE `SongsArtists` DISABLE KEYS */;
+INSERT INTO `SongsArtists` VALUES
+    (1,1),
+    (2,2),
+    (3,3);
+/*!40000 ALTER TABLE `SongsArtists` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 --
 -- Table structure for table `AlbumsGenres`
@@ -217,7 +245,21 @@ CREATE TABLE `AlbumsGenres` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `artists_genres`
+-- Dumping data for table `AlbumsGenres`
+--
+
+LOCK TABLES `AlbumsGenres` WRITE;
+/*!40000 ALTER TABLE `AlbumsGenres` DISABLE KEYS */;
+INSERT INTO `AlbumsGenres` VALUES
+    (1,1),
+    (2,5),
+    (3,1);
+/*!40000 ALTER TABLE `AlbumsGenres` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
+-- Table structure for table `ArtistsGenres`
 --
 
 DROP TABLE IF EXISTS `ArtistsGenres`;
@@ -234,6 +276,18 @@ CREATE TABLE `ArtistsGenres` (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `ArtistsGenres`
+--
+
+LOCK TABLES `ArtistsGenres` WRITE;
+/*!40000 ALTER TABLE `ArtistsGenres` DISABLE KEYS */;
+INSERT INTO `ArtistsGenres` VALUES
+    (1,1),
+    (2,5),
+    (3,1);
+/*!40000 ALTER TABLE `ArtistsGenres` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `SongsGenres`
@@ -252,6 +306,19 @@ CREATE TABLE `SongsGenres` (
     REFERENCES `Genres`(`genreId`)
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `SongsGenres`
+--
+
+LOCK TABLES `SongsGenres` WRITE;
+/*!40000 ALTER TABLE `SongsGenres` DISABLE KEYS */;
+INSERT INTO `SongsGenres` VALUES
+    (1,1),
+    (2,5),
+    (3,1);
+/*!40000 ALTER TABLE `SongsGenres` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
