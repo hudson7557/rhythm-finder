@@ -33,9 +33,9 @@ CREATE TABLE `Users` (
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
 INSERT INTO `Users` VALUES
-    (NUll, 'Marissa','marissa@email.com','password123'),
-    (NUll, 'Scott','scott@email.com','password456'),
-    (NUll, 'Erin','erin@email.com','password789');
+    (1, 'Marissa','marissa@email.com','password123'),
+    (2, 'Scott','scott@email.com','password456'),
+    (3, 'Erin','erin@email.com','password789');
 /*!40000 ALTER TABLE `Users` ENABLE KEYS */;
 UNLOCK TABLES;
 
