@@ -9,9 +9,6 @@
 td, th {
     padding: 1em;
 }
-table {
-    margin: 2em;
-}
 td {
     border-top: 1px solid rgba(73, 84, 100, .5);
     border-bottom: 1px solid rgba(73, 84, 100, .5);

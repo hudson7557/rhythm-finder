@@ -1,23 +1,8 @@
 <div class="row my-4">
-    <div class="mx-auto text-center">
-
-        <h3>{{header}}</h3>
-
-        <table>
-            <thead>
-                <tr>
-                    <th hidden>User Id</th>
-                    <th>User Name</th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="mx-auto">
+        <h3>All Rhythm Seekers</h3>
                 {{#each items}}
-                <tr>
-                    <td hidden>{{userId}}</td>
-                    <td>{{userName}}</td>
-                </tr>
+                    <li id={{userId}}>{{userName}}</li>
                 {{/each}}
-            </tbody>
-        </table>
     </div>
 </div>
