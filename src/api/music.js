@@ -1,6 +1,9 @@
 var express = require("express");
-var router = express.Router();
-var SongServices = require("../services/song");
+var router  = express.Router();
+var SongServices   = require("../services/song");
+var ArtistServices = require("../services/artist");
+var AlbumServices  = require("../services/album");
+var GenreServices  = require("../services/genre");
 
 router.route("/")
     .get((req, res, next) => {
@@ -13,7 +16,7 @@ router.route("/")
             .catch((err) => {
                 next(err);
             });
-})
+    })
 
 router.route("/add")
     .get((req, res) => {
@@ -21,18 +24,51 @@ router.route("/add")
     });
 
 router.route("/artists")
-    .get((req, res) => {
-        res.render("all-music");
-    });
+    .get((req, res, next) => {
+    ArtistServices.getAllArtists()
+        .then((result) => {
+            console.log(result);
+            res.render("music", {
+                "items": result,
+                "header": "All Artists",
+                "description": "Artist Name"
+            });
+            })
+        .catch((err) => {
+            next(err);
+        });
+    })
 
 router.route("/albums")
-    .get((req, res) => {
-        res.render("all-music");
-    });
+    .get((req, res, next) => {
+        AlbumServices.getAllAlbums()
+            .then((result) => {
+                console.log(result);
+                res.render("music", {
+                    "items": result,
+                    "header": "All Albums",
+                    "description": "Album Name"
+                });
+                })
+            .catch((err) => {
+                next(err);
+            });
+        })
 
 router.route("/genres")
-    .get((req, res) => {
-        res.render("all-music");
-    });
+    .get((req, res, next) => {
+        GenreServices.getAllGenres()
+            .then((result) => {
+                console.log(result);
+                res.render("music", {
+                    "items": result,
+                    "header": "All Genres",
+                    "description": "Genre Name"
+                });
+                })
+            .catch((err) => {
+                next(err);
+            });
+        })
 
 module.exports = router;

@@ -29,7 +29,7 @@ router.route("/all")
             .then((result) => {
                 console.log("get all users: ");
                 console.log(result);
-                res.render("all-users", { "items": result, "header": "All Users" });
+                res.render("all-users", { "items": result });
             })
             .catch((err) => {
                 next(err);

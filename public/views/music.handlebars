@@ -1,0 +1,27 @@
+<div class="container my-4">
+    <div class="row">
+        <div class="mx-auto text-center">
+
+            <h3>{{header}}</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th hidden>Id</th>
+                        <th>{{description}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="musicBody">
+                    {{#each items}}
+                    <tr>
+                        <td hidden>{{id}}</td>
+                        <td>{{name}}</td>
+                        <td class="table-btn"><button class="btn btn-small btn-primary">Favorite</button></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
