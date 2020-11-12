@@ -9,11 +9,22 @@ User.getAllUsers = () => {
     });
 }
 
+User.getUser = () => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("getUser"), [])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
         case "allUsers":
             query = "SELECT * FROM Users;"
+            break;
+        case "getUser":
+            query = "SELECT * FROM Users WHERE userId=1;"
             break;
         }
 

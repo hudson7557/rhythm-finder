@@ -13,9 +13,15 @@ router.route("/music")
     });
 
 router.route("/profile")
-    .get((req, res) => {
-        res.render("user-profile");
-    });
+.get((req, res, next) => {
+    UserServices.getUser()
+        .then((result) => {
+            res.render("user-profile", { "user": result });
+        })
+        .catch((err) => {
+            next(err);
+        });
+});
 
 router.route("/all")
     .get((req, res, next) => {
