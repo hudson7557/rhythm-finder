@@ -1,29 +1,23 @@
 <div class="container my-4">
     <div class="row">
-        <div class="mx-auto text-center">
-
-            <h3>{{header}}</h3>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th hidden>Song Id</th>
-                        <th>Song Name</th>
-                        <th>Song Album</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="musicBody">
-                    {{#each items}}
-                    <tr>
-                        <td hidden>{{songId}}</td>
-                        <td>{{songName}}</td>
-                        <td>{{songAlbum}}</td>
-                        <td class="table-btn"><button class="btn btn-small btn-primary">Favorite</button></td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+        <h3 class="mx-auto">{{header}}</h3>
+    </div>
+    <div class="row justify-content-center">
+        {{#each items}}
+        <div class="card col-md-2 m-1" id={{songId}}>
+            <img src="" class="card-img-top">
+            <div class="card-body text-center">
+                <p class="card-text">
+                    {{songName}} <BR>
+                    {{songArtist}} <BR>
+                    {{songAlbum}} <BR>
+                    {{songGenre}}
+                </p>
+            </div>
+            <div class="card-body text-center">
+                <button class="btn btn-small btn-primary">Favorite</button>
+            </div>
         </div>
+        {{/each}}
     </div>
 </div>
