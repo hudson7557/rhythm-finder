@@ -9,9 +9,8 @@ router.route("/")
     .get((req, res, next) => {
         SongServices.getAllSongs()
             .then((result) => {
-                console.log("get all songs: ");
                 console.log(result);
-                res.render("all-music", { "items": result, "header": "All Songs" });
+                res.render("music", { "items": result, "header": "All Songs" });
             })
             .catch((err) => {
                 next(err);
@@ -30,8 +29,7 @@ router.route("/artists")
             console.log(result);
             res.render("music", {
                 "items": result,
-                "header": "All Artists",
-                "description": "Artist Name"
+                "header": "All Artists"
             });
             })
         .catch((err) => {
@@ -46,8 +44,7 @@ router.route("/albums")
                 console.log(result);
                 res.render("music", {
                     "items": result,
-                    "header": "All Albums",
-                    "description": "Album Name"
+                    "header": "All Albums"
                 });
                 })
             .catch((err) => {
@@ -62,8 +59,7 @@ router.route("/genres")
                 console.log(result);
                 res.render("music", {
                     "items": result,
-                    "header": "All Genres",
-                    "description": "Genre Name"
+                    "header": "All Genres"
                 });
                 })
             .catch((err) => {

@@ -1,3 +1,4 @@
+var faker = require('faker');
 var ArtistModel = require("../models/artist");
 var ArtistServices = {};
 
@@ -9,7 +10,9 @@ ArtistServices.getAllArtists = () => {
                 results.forEach(element => {
                     var processed = {
                         "id": element.artistId,
-                        "name": element.artistName
+                        "name": element.artistName,
+                        "description": `Known for ${faker.commerce.productAdjective()} music`,
+                        "location": faker.address.state(),
                     }
                     processedResults.push(processed);
                 });

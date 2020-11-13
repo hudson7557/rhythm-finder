@@ -2,19 +2,20 @@
     <div class="row">
         <h3 class="mx-auto">{{header}}</h3>
     </div>
-    <div class="row justify-content-center">
-            {{#each items}}
-            <div class="card col-md-2 m-1" id={{id}}>
-                <img src="" class="card-img-top">
-                <div class="card-body text-center">
-                    <p class="card-text">
-                        {{name}}
-                    </p>
-                </div>
-                <div class="card-body text-center">
-                    <button class="btn btn-small btn-primary">Favorite</button>
-                </div>
+    <div class="row justify-content-center align-items-center">
+        {{#each items}}
+        <div class="card m-1" style="width: 18rem;" id={{id}}>
+            <img src="{{img}}" class="card-img-top">
+            <div class="card-body text-center">
+                <p class="card-text">
+                    <strong>{{name}}</strong>
+                    {{#if location}}
+                <P></P><em>{{description}}</em> <BR>
+                <small>Popular in {{location}}</small>{{/if}}
+                </p>
+                <button class="btn btn-small btn-primary">Favorite</button>
             </div>
-            {{/each}}
         </div>
+        {{/each}}
+    </div>
 </div>

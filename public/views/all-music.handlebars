@@ -2,19 +2,17 @@
     <div class="row">
         <h3 class="mx-auto">{{header}}</h3>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center align-items-center">
         {{#each items}}
         <div class="card col-md-2 m-1" id={{songId}}>
-            <img src="" class="card-img-top">
             <div class="card-body text-center">
                 <p class="card-text">
                     {{songName}} <BR>
-                    {{songArtist}} <BR>
+                    {{description}}
+                    {{!-- {{songArtist}} <BR>
                     {{songAlbum}} <BR>
-                    {{songGenre}}
+                    {{songGenre}} --}}
                 </p>
-            </div>
-            <div class="card-body text-center">
                 <button class="btn btn-small btn-primary">Favorite</button>
             </div>
         </div>
