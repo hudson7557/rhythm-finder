@@ -91,9 +91,9 @@ CREATE TABLE `Songs` (
 LOCK TABLES `Songs` WRITE;
 /*!40000 ALTER TABLE `Songs` DISABLE KEYS */;
 INSERT INTO `Songs` VALUES
-    (NULL,'Strawberry Fields Forever',1), 
-    (NULL,'Blinding Lights',2),
-    (NULL,'Kokomo',3);
+    (1,'Strawberry Fields Forever',1), 
+    (2,'Blinding Lights',2),
+    (3,'Kokomo',3);
 /*!40000 ALTER TABLE `Songs` ENABLE KEYS */;
 UNLOCK TABLES;
 
