@@ -33,7 +33,7 @@ function getQuery(type) {
                 FROM Albums a LEFT JOIN \
                 (SELECT ag.albumId, g.genreId, g.genreName FROM AlbumsGenres ag \
                 INNER JOIN Genres g ON g.genreId = ag.genreId) gn ON \
-                a.albumId = gn.albumId WHERE gn.genreId = ? "
+                a.albumId = gn.albumId WHERE gn.genreId = ? ;"
             break;
         }
 
