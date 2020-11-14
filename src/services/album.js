@@ -13,7 +13,6 @@ AlbumServices.getAllAlbums = () => {
                         "id": element.albumId,
                         "name": element.albumName,
                         "genre": element.genreName,
-                        "description": `Listen when ${faker.hacker.ingverb()}`,
                         "location": faker.address.state(),
                         "img": image
                     }

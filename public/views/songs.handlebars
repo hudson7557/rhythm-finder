@@ -1,0 +1,28 @@
+<div class="container my-4">
+    <div class="row">
+        <h3 class="mx-auto">{{header}}</h3>
+    </div>
+    <div class="row justify-content-center align-items-center">
+        {{#each items}}
+        <div class="card m-1" style="width: 18rem;" id={{id}}>
+            <div class="card-body text-center">
+                <p class="card-text">
+                    <strong>{{name}}</strong> <BR>
+                    {{#if artist}} {{artist}} <BR> {{/if}}
+                    {{#if album}} {{album}} <BR> {{/if}}
+                    {{#if genre}} {{genre}} <BR> {{/if}}
+                    {{#if location}}
+                    <P></P><em>"{{description}}"</em> <BR>
+                    <small>Popular in {{location}}</small>
+                    {{/if}}
+                </p>
+                
+                {{#if genre}}
+                <small><a href="#">Add Genre</a></small>
+                {{/if}}
+                &nbsp; <button class="btn btn-sm btn-primary">Favorite</button>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
