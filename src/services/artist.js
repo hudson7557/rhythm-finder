@@ -11,6 +11,7 @@ ArtistServices.getAllArtists = () => {
                     var processed = {
                         "id": element.artistId,
                         "name": element.artistName,
+                        "genre": element.genreName,
                         "description": `Known for ${faker.commerce.productAdjective()} music`,
                         "location": faker.address.state(),
                     }

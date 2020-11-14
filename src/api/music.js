@@ -10,7 +10,9 @@ router.route("/")
         SongServices.getAllSongs()
             .then((result) => {
                 console.log(result);
-                res.render("music", { "items": result, "header": "Songs" });
+                res.render("songs", {
+                    "items": result, "header": "Songs"
+                });
             })
             .catch((err) => {
                 next(err);
@@ -28,7 +30,7 @@ router.route("/artists")
     ArtistServices.getAllArtists()
         .then((result) => {
             console.log(result);
-            res.render("music", {
+            res.render("artists", {
                 "items": result,
                 "header": "Artists"
             });
@@ -43,7 +45,7 @@ router.route("/albums")
         AlbumServices.getAllAlbums()
             .then((result) => {
                 console.log(result);
-                res.render("music", {
+                res.render("albums", {
                     "items": result,
                     "header": "Albums"
                 });

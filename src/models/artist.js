@@ -13,7 +13,12 @@ function getQuery(type) {
     var query = "";
     switch(type) {
         case "allArtists":
-            query = "SELECT * FROM Artists;"
+            query = "SELECT a.artistId, a.artistName, gn.genreName \
+                FROM Artists a \
+                LEFT JOIN \
+                    (SELECT ag.artistId, g.genreName FROM ArtistsGenres ag \
+                    INNER JOIN Genres g ON g.genreId = ag.genreId) gn \
+                ON a.artistId = gn.artistId;"
             break;
         }
 
