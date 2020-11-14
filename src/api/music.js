@@ -10,7 +10,7 @@ router.route("/")
         SongServices.getAllSongs()
             .then((result) => {
                 console.log(result);
-                res.render("music", { "items": result, "header": "All Songs" });
+                res.render("music", { "items": result, "header": "Songs" });
             })
             .catch((err) => {
                 next(err);
@@ -21,6 +21,7 @@ router.route("/add")
     .get((req, res) => {
         res.render("add-music");
     });
+    // add POST ROUTE here
 
 router.route("/artists")
     .get((req, res, next) => {
@@ -29,9 +30,9 @@ router.route("/artists")
             console.log(result);
             res.render("music", {
                 "items": result,
-                "header": "All Artists"
+                "header": "Artists"
             });
-            })
+        })
         .catch((err) => {
             next(err);
         });
@@ -44,9 +45,9 @@ router.route("/albums")
                 console.log(result);
                 res.render("music", {
                     "items": result,
-                    "header": "All Albums"
+                    "header": "Albums"
                 });
-                })
+            })
             .catch((err) => {
                 next(err);
             });
@@ -56,7 +57,6 @@ router.route("/genres")
     .get((req, res, next) => {
         GenreServices.getAllGenres()
             .then((result) => {
-                console.log(result);
                 res.render("genres", { "items": result });
             })
             .catch((err) => {
