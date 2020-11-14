@@ -13,6 +13,28 @@ SongServices.getAllSongs = () => {
                         "name": element.songName,
                         "description": faker.commerce.productAdjective(),
                         "location": faker.address.state(),
+                        "album": element.albumName
+                    }
+                    processedResults.push(processed);
+                });
+                return processedResults;
+            })
+            .then(resolve)
+            .catch(reject);
+    });
+};
+
+SongServices.getAllSongsGenres = () => {
+    return new Promise((resolve, reject) => {
+        SongModel.getAllSongsGenres()
+            .then((results) => {
+                var processedResults = []
+                results.forEach(element => {
+                    var processed = {
+                        "id": element.songId,
+                        "name": element.songName,
+                        "description": faker.commerce.productAdjective(),
+                        "location": faker.address.state(),
                     }
                     processedResults.push(processed);
                 });

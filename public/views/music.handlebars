@@ -8,9 +8,11 @@
             <img src="{{img}}" class="card-img-top">
             <div class="card-body text-center">
                 <p class="card-text">
-                    <strong>{{name}}</strong>
+                    <strong>{{name}}</strong> <BR>
+                    {{album}} <BR>
+                    {{artist}}
                     {{#if location}}
-                <P></P><em>{{description}}</em> <BR>
+                <P></P><em>"{{description}}"</em> <BR>
                 <small>Popular in {{location}}</small>{{/if}}
                 </p>
                 <button class="btn btn-small btn-primary">Favorite</button>
