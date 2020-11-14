@@ -57,11 +57,8 @@ router.route("/genres")
         GenreServices.getAllGenres()
             .then((result) => {
                 console.log(result);
-                res.render("music", {
-                    "items": result,
-                    "header": "All Genres"
-                });
-                })
+                res.render("genres", { "items": result });
+            })
             .catch((err) => {
                 next(err);
             });

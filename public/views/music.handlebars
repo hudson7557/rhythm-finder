@@ -16,7 +16,12 @@
                 <P></P><em>"{{description}}"</em> <BR>
                 <small>Popular in {{location}}</small>{{/if}}
                 </p>
-                <button class="btn btn-small btn-primary">Favorite</button>
+                {{#if add_genre}}
+                <button class="btn btn-sm btn-outline-dark">Add Genre</button>
+                {{/if}}
+                {{#if favorite}}
+                &nbsp; <button class="btn btn-sm btn-primary">Favorite</button>
+                {{/if}}
             </div>
         </div>
         {{/each}}
