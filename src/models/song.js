@@ -14,13 +14,17 @@ function getQuery(type) {
     var query = "";
     switch(type) {
         case "allSongs":
-            query = "SELECT s.songId, s.songName, gn.genreName, \
-                a.albumName FROM Songs s \
+            query = "SELECT s.songId, s.songName, an.artistName, \
+                a.albumName, gn.genreName \
+                FROM Songs s \
                 INNER JOIN Albums a ON a.albumId = s.songAlbum \
-                LEFT JOIN \
-                    (SELECT sg.songId, g.genreName FROM SongsGenres sg \
-                    INNER JOIN Genres g ON g.genreId = sg.genreId) gn \
-                ON s.songId = gn.songId;"
+                LEFT JOIN(SELECT sg.songId, g.genreName \
+                FROM SongsGenres sg \
+                INNER JOIN Genres g ON g.genreId = sg.genreId) gn \
+                ON s.songId = gn.songId \
+                LEFT JOIN(SELECT sar.songId, ar.artistName \
+                FROM SongsArtists sar INNER JOIN Artists ar ON \
+                ar.artistId = sar.artistId) an ON s.songId = an.songId;"
             break;
         }
 

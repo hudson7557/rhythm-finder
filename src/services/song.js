@@ -12,11 +12,11 @@ SongServices.getAllSongs = () => {
                     var processed = {
                         "id": element.songId,
                         "name": element.songName,
+                        "artist": element.artistName,
                         "album": element.albumName,
                         "genre": element.genreName,
                         "description": faker.commerce.productAdjective(),
-                        "location": faker.address.state(),
-                        "favorite": true
+                        "location": faker.address.state()
                     }
                     processedResults.push(processed);
                 });
