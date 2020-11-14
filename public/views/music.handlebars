@@ -9,8 +9,9 @@
             <div class="card-body text-center">
                 <p class="card-text">
                     <strong>{{name}}</strong> <BR>
-                    {{album}} <BR>
-                    {{artist}}
+                    {{#if artist}} {{artist}} <BR> {{/if}}
+                    {{#if album}} {{album}} <BR> {{/if}}
+                    {{#if genre}} {{genre}} <BR> {{/if}}
                     {{#if location}}
                 <P></P><em>"{{description}}"</em> <BR>
                 <small>Popular in {{location}}</small>{{/if}}

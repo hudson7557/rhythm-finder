@@ -6,6 +6,7 @@ SongServices.getAllSongs = () => {
     return new Promise((resolve, reject) => {
         SongModel.getAllSongs()
             .then((results) => {
+                console.log(results);
                 var processedResults = []
                 results.forEach(element => {
                     var processed = {
@@ -13,28 +14,8 @@ SongServices.getAllSongs = () => {
                         "name": element.songName,
                         "description": faker.commerce.productAdjective(),
                         "location": faker.address.state(),
+                        "genre": element.genreName,
                         "album": element.albumName
-                    }
-                    processedResults.push(processed);
-                });
-                return processedResults;
-            })
-            .then(resolve)
-            .catch(reject);
-    });
-};
-
-SongServices.getAllSongsGenres = () => {
-    return new Promise((resolve, reject) => {
-        SongModel.getAllSongsGenres()
-            .then((results) => {
-                var processedResults = []
-                results.forEach(element => {
-                    var processed = {
-                        "id": element.songId,
-                        "name": element.songName,
-                        "description": faker.commerce.productAdjective(),
-                        "location": faker.address.state(),
                     }
                     processedResults.push(processed);
                 });
