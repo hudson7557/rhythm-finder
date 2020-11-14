@@ -47,4 +47,24 @@ SongServices.getSongsByArtist = (artistId) => {
             .catch(reject);
     });
 };
+
+SongServices.getSongsByAlbum = (albumId) => {
+    return new Promise((resolve, reject) => {
+        SongModel.getSongsByAlbum(albumId)
+            .then((results) => {
+                var processedResults = []
+                results.forEach(element => {
+                    var processed = {
+                        "id": element.songId,
+                        "name": element.songName,
+                        "album": element.albumName,
+                    }
+                    processedResults.push(processed);
+                });
+                return processedResults;
+            })
+            .then(resolve)
+            .catch(reject);
+    });
+};
 module.exports = SongServices;

@@ -88,7 +88,7 @@ router.route("/albums-genre/:id")
             });
         })
 
-router.route("/artists-songs/:id")
+router.route("/songs-artist/:id")
     .get((req, res, next) => {
         SongServices.getSongsByArtist(req.params.id)
             .then((result) => {
@@ -110,5 +110,26 @@ router.route("/artists-songs/:id")
             });
         })
     
-    
+router.route("/songs-album/:id")
+    .get((req, res, next) => {
+        SongServices.getSongsByAlbum(req.params.id)
+            .then((result) => {
+                if (result.length > 0) {
+                    console.log(result);
+                    res.render("songs", {
+                        "items": result,
+                        "header": `Songs in ${result[0].album}`
+                    });
+                }
+                else {
+                    res.render("songs", {
+                        "header": "No songs found in that album"
+                    });
+                }
+            })
+            .catch((err) => {
+                next(err);
+            });
+        })
+        
 module.exports = router;

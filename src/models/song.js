@@ -18,6 +18,14 @@ Song.getSongsByArtist = (artistId) => {
     });
 }
 
+Song.getSongsByAlbum = (albumId) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("allSongsByAlbum"), [albumId])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -40,6 +48,12 @@ function getQuery(type) {
                 (SELECT sar.songId, ar.artistName, ar.artistId FROM Artists ar \
                 INNER JOIN SongsArtists sar ON sar.artistId = ar.artistId) \
                 arn ON s.songId = arn.songId WHERE arn.artistId = ? ;"
+            break;
+        case "allSongsByAlbum":
+            query = "SELECT s.songId, s.songName, a.albumName \
+                FROM Songs s INNER JOIN Albums a ON \
+                a.albumId = s.songAlbum \
+                WHERE a.albumId = ? ;"
             break;
         }
 
