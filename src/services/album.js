@@ -25,4 +25,27 @@ AlbumServices.getAllAlbums = () => {
     });
 };
 
+AlbumServices.getAlbumsByGenres = (genreId) => {
+    return new Promise((resolve, reject) => {
+        AlbumModel.getAlbumsByGenres(genreId)
+            .then((results) => {
+                var processedResults = []
+                results.forEach(element => {
+                    var image = faker.image.image();
+                    var processed = {
+                        "id": element.albumId,
+                        "name": element.albumName,
+                        "genre": element.genreName,
+                        "location": faker.address.state(),
+                        "img": image
+                    }
+                    processedResults.push(processed);
+                });
+                return processedResults;
+            })
+            .then(resolve)
+            .catch(reject);
+    });
+};
+
 module.exports = AlbumServices;

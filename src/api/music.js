@@ -66,4 +66,27 @@ router.route("/genres")
             });
         })
 
+router.route("/albums/genre/:id")
+    .get((req, res, next) => {
+        AlbumServices.getAlbumsByGenres(req.params.id)
+            .then((result) => {
+                if (result.length > 0) {
+                    console.log(result);
+                    res.render("albums", {
+                        "items": result,
+                        "header": `${result[0].genre} Albums`
+                    });
+                }
+                else {
+                    res.render("albums", {
+                        "header": "No albums found under that genre"
+                    });
+                }
+            })
+            .catch((err) => {
+                next(err);
+            });
+        })
+
+
 module.exports = router;

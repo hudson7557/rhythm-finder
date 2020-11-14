@@ -9,6 +9,14 @@ Album.getAllAlbums = () => {
     });
 }
 
+Album.getAlbumsByGenres = (genreId) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("getAlbumsByGenres"), [genreId])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -19,6 +27,13 @@ function getQuery(type) {
                     (SELECT ag.albumId, g.genreName FROM AlbumsGenres ag \
                     INNER JOIN Genres g ON g.genreId = ag.genreId) gn \
                 ON a.albumId = gn.albumId;"
+            break;
+        case "getAlbumsByGenres":
+            query = "SELECT a.albumId, a.albumName, gn.genreName \
+                FROM Albums a LEFT JOIN \
+                (SELECT ag.albumId, g.genreId, g.genreName FROM AlbumsGenres ag \
+                INNER JOIN Genres g ON g.genreId = ag.genreId) gn ON \
+                a.albumId = gn.albumId WHERE gn.genreId = ? "
             break;
         }
 
