@@ -36,7 +36,6 @@ AlbumServices.getAlbumsByGenres = (genreId) => {
                         "id": element.albumId,
                         "name": element.albumName,
                         "genre": element.genreName,
-                        "location": faker.address.state(),
                         "img": image
                     }
                     processedResults.push(processed);

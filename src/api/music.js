@@ -88,7 +88,6 @@ router.route("/albums-genre/:id")
             });
         })
 
-
 router.route("/artists-genre/:id")
         .get((req, res, next) => {
         ArtistServices.getAllArtistsByGenre(req.params.id)
@@ -111,7 +110,30 @@ router.route("/artists-genre/:id")
         });
     })  
 
-router.route("/songs-artist/:id")
+router.route("/songs-genre/:id")
+    .get((req, res, next) => {
+    SongServices.getSongsByGenre(req.params.id)
+    .then((result) => {
+        if (result.length > 0) {
+            console.log(result);
+            res.render("songs", {
+                "items": result,
+                "header": `${result[0].genre} Songs`
+            });
+        }
+        else {
+            res.render("albums", {
+                "header": "No songs found under that genre"
+            });
+        }
+    })
+    .catch((err) => {
+        next(err);
+    });
+})  
+
+
+    router.route("/songs-artist/:id")
     .get((req, res, next) => {
         SongServices.getSongsByArtist(req.params.id)
             .then((result) => {

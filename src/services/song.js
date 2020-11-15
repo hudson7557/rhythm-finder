@@ -6,7 +6,6 @@ SongServices.getAllSongs = () => {
     return new Promise((resolve, reject) => {
         SongModel.getAllSongs()
             .then((results) => {
-                console.log(results);
                 var processedResults = []
                 results.forEach(element => {
                     var processed = {
@@ -67,4 +66,27 @@ SongServices.getSongsByAlbum = (albumId) => {
             .catch(reject);
     });
 };
+
+SongServices.getSongsByGenre = (genreId) => {
+    return new Promise((resolve, reject) => {
+        SongModel.getSongsByGenre(genreId)
+        .then((results) => {
+            var processedResults = []
+            results.forEach(element => {
+                var processed = {
+                    "id": element.songId,
+                    "name": element.songName,
+                    "artist": element.artistName,
+                    "album": element.albumName,
+                    "genre": element.genreName,
+                }
+                processedResults.push(processed);
+            });
+            return processedResults;
+        })
+        .then(resolve)
+        .catch(reject);
+    });
+};
+
 module.exports = SongServices;

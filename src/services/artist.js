@@ -34,8 +34,6 @@ ArtistServices.getAllArtistsByGenre = (genreId) => {
                         "id": element.artistId,
                         "name": element.artistName,
                         "genre": element.genreName,
-                        "description": `Known for ${faker.commerce.productAdjective()} music`,
-                        "location": faker.address.state(),
                     }
                     processedResults.push(processed);
                 });
