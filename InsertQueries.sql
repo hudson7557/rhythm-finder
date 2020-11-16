@@ -213,6 +213,8 @@ SELECT t3.songName, t1.artistName, t6.albumName, t5.genreName FROM artists AS t1
     JOIN albums AS t6 ON t3.songAlbum = t6.albumId;
     -- Add a relationship to users_songs.
 
+-- Update query for the Users table 
+UPDATE Users SET userEmail = ? WHERE userId = ?;
 
 -- Delete from UsersSongs
 
