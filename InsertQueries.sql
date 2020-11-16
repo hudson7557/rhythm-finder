@@ -104,9 +104,9 @@ SELECT * FROM Users WHERE userId = ?;
 -- Query to insert an artist and song, also establishes the M:M connect in songs_artists
 -- 
 
-INSERT INTO `artists` VALUES (NUll, "Notorious C.A.T."); 
+INSERT INTO `Artists` VALUES (NUll, "Notorious C.A.T."); 
 SET @artistId = LAST_INSERT_ID();
-INSERT INTO `songs` VALUES (NULL, "One more life", 2);
+INSERT INTO `Songs` VALUES (NULL, "One more life", 2);
 SET @songId = LAST_INSERT_ID();
 INSERT INTO `SongsArtists` VALUES (@songId, @artistId);
 
@@ -121,7 +121,7 @@ SELECT t1.artistName, t3.songName FROM artists AS t1 JOIN songs_artists AS t2 ON
 -- Assuming genre id would be provided back to us automatically. 
 --
 
-INSERT INTO `albums` VALUES (NUll, "Notorious"); 
+INSERT INTO `Albums` VALUES (NUll, "Notorious"); 
 SET @albumId = LAST_INSERT_ID();
 INSERT INTO `AlbumsGenres` VALUES (@albumId, 3); -- edit the three to change value
 
@@ -134,9 +134,9 @@ SELECT t1.albumName, t3.genreName FROM albums AS t1 JOIN albums_genres AS t2 ON 
 --
 --  Query to insert a song and genre, also establishes the M:M connect in songs_genres and gets an albumsId since that's referenced in the schema
 --
-INSERT INTO `albums` VALUES (NUll, "Notorious"); 
+INSERT INTO `Albums` VALUES (NUll, "Notorious"); 
 SET @albumId = LAST_INSERT_ID();
-INSERT INTO `songs` VALUES (NUll, "Notorious C.A.T.", @albumId); 
+INSERT INTO `Songs` VALUES (NUll, "Notorious C.A.T.", @albumId); 
 SET @songId = LAST_INSERT_ID();
 INSERT INTO `SongsGenres` VALUES (@songId, 3);
 
@@ -149,7 +149,7 @@ SELECT t1.songName, t3.genreName FROM songs AS t1 JOIN songs_genres AS t2 ON t1.
 --
 --  Query to insert into arists_genres
 --
-INSERT INTO `artists` VALUES (NUll, "Notorious C.A.T."); 
+INSERT INTO `Artists` VALUES (NUll, "Notorious C.A.T."); 
 SET @artistId = LAST_INSERT_ID();
 INSERT INTO `ArtistsGenres` VALUES (@artistId, 3);
 
@@ -163,7 +163,7 @@ SELECT t1.artistName, t3.genreName FROM artists AS t1 JOIN artists_genres AS t2 
 --  Query to add a users song list. 
 --
 
-INSERT INTO `songs` VALUES (NUll, "One more chance", @albumId); 
+INSERT INTO `Songs` VALUES (NUll, "One more chance", @albumId); 
 SET @songId = LAST_INSERT_ID();
 
 INSERT INTO `UsersSongs` VALUES (@songId, (SELECT userId FROM users WHERE userName="Eddie the cat")); -- Obviously will have to edit how we get the user name.
@@ -186,14 +186,14 @@ SET @albumName = "Notorious";
 SET @genreId = 3; -- 3 is the value of a rapper. 
 
 
-INSERT INTO `artists` VALUES (NUll, @artistName); 
+INSERT INTO `Artists` VALUES (NUll, @artistName); 
 SET @artistId = LAST_INSERT_ID();
 INSERT INTO `ArtistsGenres` VALUES (@artistId, @genreId); -- artists_genres completed
 
 -- Insert into ablum next 
-INSERT INTO `albums` VALUES (NUll, @albumName); 
+INSERT INTO `Albums` VALUES (NUll, @albumName); 
 SET @albumId = LAST_INSERT_ID();
-INSERT INTO `songs` VALUES (NUll, @songName, @albumId); 
+INSERT INTO `Songs` VALUES (NUll, @songName, @albumId); 
 SET @songId = LAST_INSERT_ID();
 INSERT INTO `SongsGenres` VALUES (@songId, @genreId); -- songs_genres completed
 
@@ -215,3 +215,5 @@ SELECT t3.songName, t1.artistName, t6.albumName, t5.genreName FROM artists AS t1
 
 
 -- Delete from UsersSongs
+
+DELETE FROM UsersSongs WHERE userId = ? and songId = ?;
