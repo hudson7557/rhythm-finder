@@ -68,9 +68,9 @@ function getQuery(type) {
             break;
         case "allSongsByGenre":
             query = "SELECT s.songId, s.songName, an.artistName, \
-                a.albumName, gn.genreName \
+                IFNULL(a.albumName, 'NULL') AS albumName, gn.genreName \
                 FROM Songs s \
-                INNER JOIN Albums a ON a.albumId = s.songAlbum \
+                LEFT JOIN Albums a ON a.albumId = s.songAlbum \
                 LEFT JOIN(SELECT sg.songId, g.genreName, g.genreId \
                 FROM SongsGenres sg \
                 INNER JOIN Genres g ON g.genreId = sg.genreId) gn \
