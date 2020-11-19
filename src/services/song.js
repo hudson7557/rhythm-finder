@@ -78,10 +78,14 @@ SongServices.getSongsByGenre = (genreId) => {
                     "name": element.songName,
                     "artist": element.artistName,
                     "album": element.albumName,
-                    "genre": element.genreName,
                 }
                 processedResults.push(processed);
             });
+            if (results.length > 0) {
+                return {
+                    "genre": results[0].genreName, "results": processedResults
+                }
+            }
             return processedResults;
         })
         .then(resolve)

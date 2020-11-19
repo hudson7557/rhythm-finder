@@ -68,13 +68,13 @@ router.route("/genres")
 
 router.route("/albums-genre/:id")
     .get((req, res, next) => {
-        AlbumServices.getAlbumsByGenres(req.params.id)
+        AlbumServices.getAlbumsByGenre(req.params.id)
             .then((result) => {
-                if (result.length > 0) {
+                if (result.results.length > 0) {
                     console.log(result);
                     res.render("albums", {
-                        "items": result,
-                        "header": `${result[0].genre} Albums`
+                        "items": result.results,
+                        "header": `${result.genre} Albums`
                     });
                 }
                 else {
@@ -92,11 +92,11 @@ router.route("/artists-genre/:id")
         .get((req, res, next) => {
         ArtistServices.getAllArtistsByGenre(req.params.id)
         .then((result) => {
-            if (result.length > 0) {
+            if (result.results.length > 0) {
                 console.log(result);
                 res.render("artists", {
-                    "items": result,
-                    "header": `${result[0].genre} Artists`
+                    "items": result.results,
+                    "header": `${result.genre} Artists`
                 });
             }
             else {
@@ -114,11 +114,11 @@ router.route("/songs-genre/:id")
     .get((req, res, next) => {
     SongServices.getSongsByGenre(req.params.id)
     .then((result) => {
-        if (result.length > 0) {
+        if (result.results.length > 0) {
             console.log(result);
             res.render("songs", {
-                "items": result,
-                "header": `${result[0].genre} Songs`
+                "items": result.results,
+                "header": `${result.genre} Songs`
             });
         }
         else {
