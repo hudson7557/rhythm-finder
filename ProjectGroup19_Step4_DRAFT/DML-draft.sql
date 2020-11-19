@@ -3,13 +3,13 @@
 
 -- Select All Songs with Artists, Albums, Genres
 
-SELECT s.songId, s.songName, an.artistName, a.albumName, gn.genreName 
+SELECT s.songId, s.songName, an.artistName, a.albumName, gn.GenresName 
 FROM Songs s 
-INNER JOIN Albums a ON a.albumId = s.songAlbum 
+LEFT JOIN Albums a ON a.albumId = s.songAlbum 
 LEFT JOIN(
-    SELECT sg.songId, g.genreName 
+    SELECT sg.songId, g.GenresName 
     FROM SongsGenres sg 
-    INNER JOIN Genres g ON g.genreId = sg.genreId) gn 
+    INNER JOIN Genres g ON g.GenresId = sg.GenresId) gn 
 ON s.songId = gn.songId 
 LEFT JOIN(
     SELECT sar.songId, ar.artistName 
@@ -17,7 +17,7 @@ LEFT JOIN(
     INNER JOIN Artists ar ON ar.artistId = sar.artistId) an
 ON s.songId = an.songId;
 
--- All Songs BY Artists
+-- All Songs by Artists
 
 SELECT s.songId, s.songName, arn.artistName, arn.artistId 
 FROM Songs s
@@ -30,65 +30,65 @@ ON s.songId = arn.songId WHERE arn.artistId = ? ;
 -- All Songs by Album
 
 SELECT s.songId, s.songName, a.albumName 
-FROM Songs s INNER JOIN Albums a
+FROM Songs s LEFT JOIN Albums a
 ON a.albumId = s.songAlbum 
 WHERE a.albumId = ? ;
 
--- All Songs BY Genre
+-- All Songs by Genre
 
-SELECT s.songId, s.songName, an.artistName, a.albumName, gn.genreName 
+SELECT s.songId, s.songName, an.artistName, a.albumName, gn.GenresName 
 FROM Songs s 
 INNER JOIN Albums a ON a.albumId = s.songAlbum 
 LEFT JOIN(
-    SELECT sg.songId, g.genreName, g.genreId 
+    SELECT sg.songId, g.GenresName, g.GenresId 
     FROM SongsGenres sg 
-    INNER JOIN Genres g ON g.genreId = sg.genreId) gn 
+    INNER JOIN Genres g ON g.GenresId = sg.GenresId) gn 
 ON s.songId = gn.songId 
 LEFT JOIN(
     SELECT sar.songId, ar.artistName 
     FROM SongsArtists sar INNER JOIN Artists ar
     ON ar.artistId = sar.artistId) an
 ON s.songId = an.songId 
-WHERE gn.genreId = ? ;
+WHERE gn.GenresId = ? ;
 
 
 -- Select Albums with Genres
 
-SELECT a.albumId, a.albumName, gn.genreName
+SELECT a.albumId, a.albumName, gn.GenresName
 FROM Albums a
 LEFT JOIN (
-    SELECT ag.albumId, g.genreName FROM AlbumsGenres ag
-    INNER JOIN Genres g ON g.genreId = ag.genreId) gn
+    SELECT ag.albumId, g.GenresName FROM AlbumsGenres ag
+    INNER JOIN Genres g ON g.GenresId = ag.GenresId) gn
 ON a.albumId = gn.albumId;
 
--- Select Albums BY Genre
+-- Select Albums by Genre
 
-SELECT a.albumId, a.albumName, gn.genreName 
+SELECT a.albumId, a.albumName, gn.GenresName 
 FROM Albums a
 LEFT JOIN(
-    SELECT ag.albumId, g.genreId, g.genreName FROM AlbumsGenres ag 
-    INNER JOIN Genres g ON g.genreId = ag.genreId) gn
+    SELECT ag.albumId, g.GenresId, g.GenresName FROM AlbumsGenres ag 
+    INNER JOIN Genres g ON g.GenresId = ag.GenresId) gn
 ON a.albumId = gn.albumId
-WHERE gn.genreId = ?;
+WHERE gn.GenresId = ?;
 
 -- Select Artists with Genres
 
-SELECT a.artistId, a.artistName, gn.genreName
+SELECT a.artistId, a.artistName, gn.GenresName
 FROM Artists a 
 LEFT JOIN 
-    (SELECT ag.artistId, g.genreName FROM ArtistsGenres ag 
-    INNER JOIN Genres g ON g.genreId = ag.genreId) gn 
+    (SELECT ag.artistId, g.GenresName FROM ArtistsGenres ag 
+    INNER JOIN Genres g ON g.GenresId = ag.GenresId) gn 
 ON a.artistId = gn.artistId;
 
--- Select Artists BY Genre
+-- Select Artists by Genre
 
-SELECT a.artistId, a.artistName, gn.genreName 
+SELECT a.artistId, a.artistName, gn.GenresName 
 FROM Artists a 
 LEFT JOIN 
-    (SELECT ag.artistId, g.genreName, g.genreId FROM ArtistsGenres ag 
-    INNER JOIN Genres g ON g.genreId = ag.genreId) gn 
+    (SELECT ag.artistId, g.GenresName, g.GenresId FROM ArtistsGenres ag 
+    INNER JOIN Genres g ON g.GenresId = ag.GenresId) gn 
 ON a.artistId = gn.artistId 
-WHERE gn.genreId = ?;
+WHERE gn.GenresId = ?;
 
 -- Select all Genres
 
@@ -100,8 +100,12 @@ SELECT * FROM Users;
 
 SELECT * FROM Users WHERE userId = ?;
 
+-- Select UserSongs
+
+SELECT * FROM Users u INNER JOIN UsersSongs us ON u.userId = us.userId
+
 -- 
--- Query to insert an artist and song, also establishes the M:M connect in songs_artists
+-- Query to insert an artist and song, also establishes the M:M connect in Songs_Artists
 -- 
 
 INSERT INTO `Artists` VALUES (NUll, "Notorious C.A.T."); 
@@ -112,13 +116,13 @@ INSERT INTO `SongsArtists` VALUES (@songId, @artistId);
 
 /*
 -- Testing query 
-SELECT t1.artistName, t3.songName FROM artists AS t1 JOIN songs_artists AS t2 ON t1.artistId = t2.artistId JOIN songs AS t3 ON t2.songId=t3.songId
+SELECT t1.artistName, t3.songName FROM Artists AS t1 JOIN Songs_Artists AS t2 ON t1.artistId = t2.artistId JOIN Songs AS t3 ON t2.songId=t3.songId
 */
 
 
 -- 
--- Query to insert an album and a genre, also establishes the M:M connect in albums_genres
--- Assuming genre id would be provided back to us automatically. 
+-- Query to insert an album and a Genres, also establishes the M:M connect in Albums_Genress
+-- Assuming Genres id would be provided back to us automatically. 
 --
 
 INSERT INTO `Albums` VALUES (NUll, "Notorious"); 
@@ -127,12 +131,12 @@ INSERT INTO `AlbumsGenres` VALUES (@albumId, 3); -- edit the three to change val
 
 /*
 -- Testing query
-SELECT t1.albumName, t3.genreName FROM albums AS t1 JOIN albums_genres AS t2 ON t1.albumId = t2.albumId JOIN genres AS t3 ON t2.genreId=t3.genreId
+SELECT t1.albumName, t3.GenresName FROM Albums AS t1 JOIN Albums_Genress AS t2 ON t1.albumId = t2.albumId JOIN Genress AS t3 ON t2.GenresId=t3.GenresId
 */
 
 
 --
---  Query to insert a song and genre, also establishes the M:M connect in songs_genres and gets an albumsId since that's referenced in the schema
+--  Query to insert a song and Genres, also establishes the M:M connect in Songs_Genress and gets an AlbumsId since that's referenced in the schema
 --
 INSERT INTO `Albums` VALUES (NUll, "Notorious"); 
 SET @albumId = LAST_INSERT_ID();
@@ -142,12 +146,12 @@ INSERT INTO `SongsGenres` VALUES (@songId, 3);
 
 /*
 -- Testing query
-SELECT t1.songName, t3.genreName FROM songs AS t1 JOIN songs_genres AS t2 ON t1.songId = t2.songId JOIN genres AS t3 ON t2.genreId=t3.genreId
+SELECT t1.songName, t3.GenresName FROM Songs AS t1 JOIN Songs_Genress AS t2 ON t1.songId = t2.songId JOIN Genress AS t3 ON t2.GenresId=t3.GenresId
 */
 
 
 --
---  Query to insert into arists_genres
+--  Query to insert into arists_Genress
 --
 INSERT INTO `Artists` VALUES (NUll, "Notorious C.A.T."); 
 SET @artistId = LAST_INSERT_ID();
@@ -155,7 +159,7 @@ INSERT INTO `ArtistsGenres` VALUES (@artistId, 3);
 
 /*
 -- Testing query
-SELECT t1.artistName, t3.genreName FROM artists AS t1 JOIN artists_genres AS t2 ON t1.artistId = t2.artistId JOIN genres AS t3 ON t2.genreId=t3.genreId
+SELECT t1.artistName, t3.GenresName FROM Artists AS t1 JOIN Artists_Genress AS t2 ON t1.artistId = t2.artistId JOIN Genress AS t3 ON t2.GenresId=t3.GenresId
 */
 
 
@@ -170,7 +174,7 @@ INSERT INTO `UsersSongs` VALUES (@songId, (SELECT userId FROM users WHERE userNa
 
 /*
 -- Testing query ALSO SELECTS A USERS ENTIRE LIBRARY OF SONGS
-SELECT t1.userName, t3.songName FROM users AS t1 JOIN users_songs AS t2 ON t1.userId = t2.userId JOIN songs AS t3 ON t2.songId=t3.songId
+SELECT t1.userName, t3.songName FROM users AS t1 JOIN users_Songs AS t2 ON t1.userId = t2.userId JOIN Songs AS t3 ON t2.songId=t3.songId
 */
 
 
@@ -183,35 +187,35 @@ SELECT t1.userName, t3.songName FROM users AS t1 JOIN users_songs AS t2 ON t1.us
 SET @artistName = "Notorious C.A.T.";
 SET @songName = "One more chance";
 SET @albumName = "Notorious";
-SET @genreId = 3; -- 3 is the value of a rapper. 
+SET @GenresId = 3; -- 3 is the value of a rapper. 
 
 
 INSERT INTO `Artists` VALUES (NUll, @artistName); 
 SET @artistId = LAST_INSERT_ID();
-INSERT INTO `ArtistsGenres` VALUES (@artistId, @genreId); -- artists_genres completed
+INSERT INTO `ArtistsGenres` VALUES (@artistId, @GenresId); -- Artists_Genress completed
 
 -- Insert into ablum next 
 INSERT INTO `Albums` VALUES (NUll, @albumName); 
 SET @albumId = LAST_INSERT_ID();
 INSERT INTO `Songs` VALUES (NUll, @songName, @albumId); 
 SET @songId = LAST_INSERT_ID();
-INSERT INTO `SongsGenres` VALUES (@songId, @genreId); -- songs_genres completed
+INSERT INTO `SongsGenres` VALUES (@songId, @GenresId); -- Songs_Genress completed
 
--- Insert into album genres next
-INSERT INTO `AlbumsGenres` VALUES (@albumId, @genreId); -- albums_genres completed
-INSERT INTO `SongsAlbums` VALUES (@songId, @artistId); -- songs_albums completed
+-- Insert into album Genress next
+INSERT INTO `AlbumsGenres` VALUES (@albumId, @GenresId); -- Albums_Genress completed
+INSERT INTO `SongsAlbums` VALUES (@songId, @artistId); -- Songs_Albums completed
 INSERT INTO `UsersSongs` VALUE ((SELECT userId FROM users WHERE Name = "Scott"), @songId) -- CHECK TO MAKE SURE THIS IS CORRECT 
 
 -- 
--- Query to view a complete song entity which has the song name, artist name, album name, and genre
+-- Query to view a complete song entity which has the song name, artist name, album name, and Genres
 -- 
-SELECT t3.songName, t1.artistName, t6.albumName, t5.genreName FROM artists AS t1 
-    JOIN songs_artists AS t2 ON t1.artistId = t2.artistId 
-    JOIN songs AS t3 ON t2.songId=t3.songId 
-    JOIN albums_genres AS t4 ON t3.songAlbum = t4.albumId 
-    JOIN genres AS t5 ON t4.genreId = t5.genreId 
-    JOIN albums AS t6 ON t3.songAlbum = t6.albumId;
-    -- Add a relationship to users_songs.
+SELECT t3.songName, t1.artistName, t6.albumName, t5.GenresName FROM Artists AS t1 
+    JOIN SongsArtists AS t2 ON t1.artistId = t2.artistId 
+    JOIN Songs AS t3 ON t2.songId=t3.songId 
+    JOIN AlbumsGenres AS t4 ON t3.songAlbum = t4.albumId 
+    JOIN Genres AS t5 ON t4.GenresId = t5.GenresId 
+    JOIN Albums AS t6 ON t3.songAlbum = t6.albumId;
+    -- Add a relationship to users_Songs.
 
 -- Update query for the Users table 
 UPDATE Users SET userEmail = ? WHERE userId = ?;

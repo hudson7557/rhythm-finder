@@ -61,9 +61,10 @@ CREATE TABLE `Albums` (
 LOCK TABLES `Albums` WRITE;
 /*!40000 ALTER TABLE `Albums` DISABLE KEYS */;
 INSERT INTO `Albums` VALUES
-    (1,'Magical Mystery Tour'),
-    (2,'After Hours'),
-    (3,'Made in California');
+    (1, 'Magical Mystery Tour'),
+    (2, 'After Hours'),
+    (3, 'Made in California'),
+    (4, 'Notorious');
 /*!40000 ALTER TABLE `Albums` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,9 +92,12 @@ CREATE TABLE `Songs` (
 LOCK TABLES `Songs` WRITE;
 /*!40000 ALTER TABLE `Songs` DISABLE KEYS */;
 INSERT INTO `Songs` VALUES
-    (1,'Strawberry Fields Forever',1), 
-    (2,'Blinding Lights',2),
-    (3,'Kokomo',3);
+    (1, 'Strawberry Fields Forever',1), 
+    (2, 'Blinding Lights',2),
+    (3, 'Kokomo',3),
+    (4, 'Beyond the Window', NULL),
+    (5, 'One More Life', 4),
+    (6, 'Notorious C.A.T.', 4);
 /*!40000 ALTER TABLE `Songs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,9 +123,10 @@ CREATE TABLE `Artists` (
 LOCK TABLES `Artists` WRITE;
 /*!40000 ALTER TABLE `Artists` DISABLE KEYS */;
 INSERT INTO `Artists` VALUES
-    (1,'The Beatles'),
-    (2,'The Weeknd'),
-    (3,'The Beach Boys');
+    (1, 'The Beatles'),
+    (2, 'The Weeknd'),
+    (3, 'The Beach Boys'),
+    (4, 'Notorious C.A.T.');
 /*!40000 ALTER TABLE `Artists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,16 +152,16 @@ CREATE TABLE `Genres` (
 LOCK TABLES `Genres` WRITE;
 /*!40000 ALTER TABLE `Genres` DISABLE KEYS */;
 INSERT INTO `Genres` VALUES
-    (1,'Pop'),
-    (2,'Hip-hop'),
-    (3,'Rap'),
-    (4,'Rock'),
-    (5,'Dance and Electronic'),
-    (6,'Indie Rock'),
-    (7,'Alternative Rock'),
-    (8,'Country'),
-    (9,'Classical'),
-    (10,'Pirate Metal');
+    (1, 'Pop'),
+    (2, 'Hip-hop'),
+    (3, 'Rap'),
+    (4, 'Rock'),
+    (5, 'Dance and Electronic'),
+    (6, 'Indie Rock'),
+    (7, 'Alternative Rock'),
+    (8, 'Country'),
+    (9, 'Classical'),
+    (10, 'Pirate Metal');
 /*!40000 ALTER TABLE `Genres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +226,10 @@ LOCK TABLES `SongsArtists` WRITE;
 INSERT INTO `SongsArtists` VALUES
     (1,1),
     (2,2),
-    (3,3);
+    (3,3),
+    (4,4),
+    (5,4),
+    (6,4);
 /*!40000 ALTER TABLE `SongsArtists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +261,8 @@ LOCK TABLES `AlbumsGenres` WRITE;
 INSERT INTO `AlbumsGenres` VALUES
     (1,1),
     (2,5),
-    (3,1);
+    (3,1),
+    (4,3);
 /*!40000 ALTER TABLE `AlbumsGenres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,7 +294,8 @@ LOCK TABLES `ArtistsGenres` WRITE;
 INSERT INTO `ArtistsGenres` VALUES
     (1,1),
     (2,5),
-    (3,1);
+    (3,1),
+    (4,3);
 /*!40000 ALTER TABLE `ArtistsGenres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,7 +326,10 @@ LOCK TABLES `SongsGenres` WRITE;
 INSERT INTO `SongsGenres` VALUES
     (1,1),
     (2,5),
-    (3,1);
+    (3,1),
+    (4,3),
+    (5,3),
+    (6,3);
 /*!40000 ALTER TABLE `SongsGenres` ENABLE KEYS */;
 UNLOCK TABLES;
 
