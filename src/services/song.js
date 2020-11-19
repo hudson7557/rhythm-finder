@@ -36,10 +36,14 @@ SongServices.getSongsByArtist = (artistId) => {
                     var processed = {
                         "id": element.songId,
                         "name": element.songName,
-                        "artist": element.artistName,
                     }
                     processedResults.push(processed);
                 });
+                if (results.length > 0) {
+                    return {
+                        "artist": results[0].artistName, "results": processedResults
+                    }
+                }
                 return processedResults;
             })
             .then(resolve)
@@ -56,10 +60,14 @@ SongServices.getSongsByAlbum = (albumId) => {
                     var processed = {
                         "id": element.songId,
                         "name": element.songName,
-                        "album": element.albumName,
                     }
                     processedResults.push(processed);
                 });
+                if (results.length > 0) {
+                    return {
+                        "album": results[0].albumName, "results": processedResults
+                    }
+                }
                 return processedResults;
             })
             .then(resolve)

@@ -3,7 +3,7 @@
 
 -- Select All Songs with Artists, Albums, Genres
 
-SELECT s.songId, s.songName, an.artistName, IFNULL(a.albumName, "No Album") AS albumName, gn.genreName 
+SELECT s.songId, s.songName, an.artistName, IFNULL(a.albumName, "NULL") AS albumName, gn.genreName 
 FROM Songs s 
 LEFT JOIN Albums a ON a.albumId = s.songAlbum 
 LEFT JOIN(
@@ -36,20 +36,23 @@ WHERE a.albumId = ? ;
 
 -- All Songs by Genre
 
-SELECT s.songId, s.songName, an.artistName, a.albumName, gn.genreName 
-FROM Songs s 
-INNER JOIN Albums a ON a.albumId = s.songAlbum 
+SELECT s.songId, s.songName, an.artistName,
+    IFNULL(a.albumName, 'NULL') AS albumName,
+    gn.genreName
+FROM Songs s
+LEFT JOIN Albums a ON a.albumId = s.songAlbum
+LEFT JOIN (
+    SELECT sg.songId, g.genreName, g.genreId
+    FROM SongsGenres sg
+    INNER JOIN Genres g ON g.genreId = sg.genreId
+) gn
+ON s.songId = gn.songId
 LEFT JOIN(
-    SELECT sg.songId, g.genreName, g.genreId 
-    FROM SongsGenres sg 
-    INNER JOIN Genres g ON g.genreId = sg.genreId) gn 
-ON s.songId = gn.songId 
-LEFT JOIN(
-    SELECT sar.songId, ar.artistName 
-    FROM SongsArtists sar INNER JOIN Artists ar
-    ON ar.artistId = sar.artistId) an
-ON s.songId = an.songId 
-WHERE gn.genreId = ? ;
+    SELECT sar.songId, ar.artistName
+    FROM SongsArtists sar
+    INNER JOIN Artists ar ON ar.artistId = sar.artistId
+) an ON s.songId = an.songId
+WHERE gn.genreId = ?;
 
 
 -- Select Albums with Genres

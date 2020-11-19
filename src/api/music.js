@@ -133,15 +133,15 @@ router.route("/songs-genre/:id")
 })  
 
 
-    router.route("/songs-artist/:id")
+router.route("/songs-artist/:id")
     .get((req, res, next) => {
         SongServices.getSongsByArtist(req.params.id)
             .then((result) => {
-                if (result.length > 0) {
+                if (result.results.length > 0) {
                     console.log(result);
                     res.render("songs", {
-                        "items": result,
-                        "header": `Songs by ${result[0].artist}`
+                        "items": result.results,
+                        "header": `Songs By ${result.artist}`
                     });
                 }
                 else {
@@ -159,11 +159,11 @@ router.route("/songs-album/:id")
     .get((req, res, next) => {
         SongServices.getSongsByAlbum(req.params.id)
             .then((result) => {
-                if (result.length > 0) {
+                if (result.results.length > 0) {
                     console.log(result);
                     res.render("songs", {
-                        "items": result,
-                        "header": `Songs in ${result[0].album}`
+                        "items": result.results,
+                        "header": `Songs in ${result.album}`
                     });
                 }
                 else {
