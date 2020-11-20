@@ -20,7 +20,7 @@
                     {{/if}}
                 </p>
                 {{#if genre}} <small><a href="#">Add Genre</a></small> &nbsp; {{/if}}
-                &nbsp; <button class="btn btn-sm btn-primary">Favorite</button>
+                {{#unless userId}} &nbsp; <button class="btn btn-sm btn-primary">Favorite</button> {{/unless}}
             </div>
         </div>
         {{/each}}

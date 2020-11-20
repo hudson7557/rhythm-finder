@@ -9,6 +9,31 @@ UserServices.getAllUsers = () => {
     });
 };
 
+UserServices.getUserSongs = (id) => {
+    return new Promise((resolve, reject) => {
+        UserModel.getUserSongs(id)
+            .then((results) => {
+                var processedResults = [];
+                results.forEach(element => {
+                    var processed = {
+                        "id": element.songId,
+                        "name": element.songName,
+                        "userId": element.userId,
+                        "userName": element.userName
+                    }
+                    processedResults.push(processed);
+                });
+                if (results.length > 0) {
+                    resolve ( {
+                        "name": results[0].userName, "results": processedResults
+                    } )
+                }
+                resolve(processedResults);
+            })
+            .catch(reject);
+    });
+};
+
 UserServices.getUser = () => {
     return new Promise((resolve, reject) => {
         UserModel.getUser()

@@ -9,6 +9,14 @@ User.getAllUsers = () => {
     });
 }
 
+User.getUserSongs = (id) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("getUserSongs"), [id])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 User.getUser = () => {
     return new Promise((resolve, reject) => {
         mysql.query(getQuery("getUser"), [])
@@ -26,8 +34,16 @@ function getQuery(type) {
         case "getUser":
             query = "SELECT * FROM Users WHERE userId=1;"
             break;
-        }
-
+        case "getUserSongs":
+            query = "SELECT u.userId, u.userName, sn.songName, sn.songId \
+                FROM Users u \
+                LEFT JOIN( \
+                    SELECT us.songId, us.userId, s.songName FROM UsersSongs us \
+                    JOIN Songs s ON s.songId = us.songId) sn \
+                ON u.userId = sn.userId \
+                WHERE u.userId = ?;"
+            break;
+        } 
     return query;
 };
 

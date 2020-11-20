@@ -105,8 +105,13 @@ SELECT * FROM Users WHERE userId = ?;
 
 -- Select UserSongs
 
-SELECT * FROM Users u INNER JOIN UsersSongs us ON u.userId = us.userId
-
+SELECT u.userId, u.userName, sn.songName, sn.songId
+FROM Users u
+LEFT JOIN(
+    SELECT us.songId, us.userId, s.songName FROM UsersSongs us
+    JOIN Songs s ON s.songId = us.songId) sn
+ON u.userId = sn.userId
+WHERE u.userId = ?;
 -- 
 -- Query to insert an artist and song, also establishes the M:M connect in Songs_Artists
 -- 
