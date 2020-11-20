@@ -19,13 +19,14 @@
             <li class="nav-item">
               <div class="btn-group">
                 <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Account
+                  Users
                 </button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="../user/music">Your Music</a>
-                  <a class="dropdown-item" href="../user/profile">Your Profile</a>
-                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="../user/all">All Users</a>
+                  <div class="dropdown-divider"></div>
+                  {{!-- <a class="dropdown-item" href="../user/music">Users' Music</a> --}}
+                  <a class="dropdown-item" href="../signup">Add User</a>
+                  {{!-- <a class="dropdown-item" href="../user/profile">Your Profile</a> --}}
                 </div>
               </div>
             </li>
@@ -45,12 +46,9 @@
             <a class="btn btn-outline-info" href="../music/add">Add Music</a>
           </ul>
           <ul class="navbar-nav">
-              <li class="nav-item">
+              {{!-- <li class="nav-item">
                 <a class="nav-link" href="../login" tabindex="-1" aria-disabled="true">Log In</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="../signup" tabindex="-1" aria-disabled="true">Sign Up</a>
-              </li>
+              </li> --}}
           </ul>
         </div>
   </nav>

@@ -44,7 +44,6 @@ AlbumServices.getAlbumsByGenre = (genreId) => {
                         "genre": results[0].genreName, "results": processedResults
                     }
                 }
-
                 return processedResults;
             })
             .then(resolve)
