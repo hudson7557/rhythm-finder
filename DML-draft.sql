@@ -178,7 +178,7 @@ SELECT t1.artistName, t3.genreName FROM Artists AS t1 JOIN Artists_Genress AS t2
 INSERT INTO `Songs` VALUES (NUll, "One more chance", @albumId); 
 SET @songId = LAST_INSERT_ID();
 
-INSERT INTO `UsersSongs` VALUES (@songId, (SELECT userId FROM users WHERE userName="Eddie the cat")); -- Obviously will have to edit how we get the user name.
+INSERT INTO `UsersSongs` VALUES (@songId, (SELECT userId FROM Users WHERE userName="Eddie the cat")); -- Obviously will have to edit how we get the user name.
 
 /*
 -- Testing query ALSO SELECTS A USERS ENTIRE LIBRARY OF SONGS
@@ -211,8 +211,8 @@ INSERT INTO `SongsGenres` VALUES (@songId, @genreId); -- Songs_Genress completed
 
 -- Insert into album Genress next
 INSERT INTO `AlbumsGenres` VALUES (@albumId, @genreId); -- Albums_Genress completed
-INSERT INTO `SongsAlbums` VALUES (@songId, @artistId); -- Songs_Albums completed
-INSERT INTO `UsersSongs` VALUE ((SELECT userId FROM users WHERE Name = "Scott"), @songId) -- CHECK TO MAKE SURE THIS IS CORRECT 
+INSERT INTO `UsersSongs` VALUE (@songId, (SELECT userId FROM Users WHERE userName = "Scott")); -- CHECK TO MAKE SURE THIS IS CORRECT 
+
 
 -- 
 -- Query to view a complete song entity which has the song name, artist name, album name, and Genres
