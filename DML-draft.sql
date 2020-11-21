@@ -112,8 +112,11 @@ LEFT JOIN(
     JOIN Songs s ON s.songId = us.songId) sn
 ON u.userId = sn.userId
 WHERE u.userId = ?;
+
+
+
 -- 
--- Query to insert an artist and song, also establishes the M:M connect in Songs_Artists
+-- Query to insert an artist and song, also establishes the M:M connect in SongsArtists
 -- 
 
 INSERT INTO `Artists` VALUES (NUll, "Notorious C.A.T."); 
@@ -124,12 +127,12 @@ INSERT INTO `SongsArtists` VALUES (@songId, @artistId);
 
 /*
 -- Testing query 
-SELECT t1.artistName, t3.songName FROM Artists AS t1 JOIN Songs_Artists AS t2 ON t1.artistId = t2.artistId JOIN Songs AS t3 ON t2.songId=t3.songId
+SELECT t1.artistName, t3.songName FROM Artists AS t1 JOIN SongsArtists AS t2 ON t1.artistId = t2.artistId JOIN Songs AS t3 ON t2.songId=t3.songId
 */
 
 
 -- 
--- Query to insert an album and a Genres, also establishes the M:M connect in Albums_Genress
+-- Query to insert an album and a Genre, also establishes the M:M connect in AlbumsGenres
 -- Assuming Genres id would be provided back to us automatically. 
 --
 
@@ -139,12 +142,12 @@ INSERT INTO `AlbumsGenres` VALUES (@albumId, 3); -- edit the three to change val
 
 /*
 -- Testing query
-SELECT t1.albumName, t3.genreName FROM Albums AS t1 JOIN Albums_Genress AS t2 ON t1.albumId = t2.albumId JOIN Genress AS t3 ON t2.genreId=t3.genreId
+SELECT t1.albumName, t3.genreName FROM Albums AS t1 JOIN AlbumsGenress AS t2 ON t1.albumId = t2.albumId JOIN Genress AS t3 ON t2.genreId=t3.genreId
 */
 
 
 --
---  Query to insert a song and Genres, also establishes the M:M connect in Songs_Genress and gets an AlbumsId since that's referenced in the schema
+--  Query to insert a song and Genre, also establishes the M:M connect in SongsGenres and gets an AlbumsId since that's referenced in the schema
 --
 INSERT INTO `Albums` VALUES (NUll, "Notorious"); 
 SET @albumId = LAST_INSERT_ID();
@@ -231,3 +234,66 @@ UPDATE Users SET userEmail = ? WHERE userId = ?;
 -- Delete from UsersSongs
 
 DELETE FROM UsersSongs WHERE userId = ? and songId = ?;
+
+/*
+INSERT STATEMENTS FOR EACH INDIVIDUAL TABLE (Really illogical)
+*/ 
+
+-- Insert into Albums 
+-- ? = albumName
+INSERT INTO Albums VALUE (NULL, ?); 
+
+-- Insert into Artists
+-- ? = artistName
+INSERT INTO Artists VALUE (NULL, ?);
+
+-- Insert into Artists
+-- ? = genreName
+INSERT INTO Genres VALUE (NULL, ?);
+
+-- Insert into songs
+-- 1st ? = songName  2nd ? = genreName (user would enter the song name and select a genre by title.)
+INSERT INTO Songs VALUE (NULL, ?, (SELECT genreId FROM Genres WHERE genreName = "Alt-Indy"));
+
+-- Insert into User already exists.
+
+-- Insert into UsersSongs
+SET @songTitle = "Heat Wave";
+SET @userId = 2; -- Would have to pull this from somewhere... Not sure where depends on how we're transfering data.
+INSERT INTO UsersSongs VALUE ((SELECT songId FROM Songs WHERE songName = @songTitle), @userId);
+
+-- Insert into AlbumsGenres
+/* This table currently allow duplicates change that by using
+ALTER TABLE AlbumsGenres 
+  ADD CONSTRAINT UQ_Entry UNIQUE (albumId, genreId);
+*/
+SET @albumName = "Glass Animals";
+SET @genreId = 12; -- Would have to pull this from somewhere... Not sure where depends on how we're transfering data.
+INSERT INTO AlbumsGenres VALUE ((SELECT albumId FROM Albums WHERE albumName = @albumName), @genreId);
+
+-- Insert into ArtistsGenres
+/* This table currently allow duplicates change that by using
+ALTER TABLE ArtistsGenres 
+  ADD CONSTRAINT UQ_Entry UNIQUE (artistId, genreId);
+*/
+SET @ArtistName = "Glass Animals";
+SET @genreId = 12; -- Would have to pull this from somewhere... Not sure where depends on how we're transfering data.
+INSERT INTO ArtistsGenres VALUE ((SELECT artistId FROM Artists WHERE artistName = @artistName), @genreId);
+
+-- Insert into SongsGenres
+/* This table currently allow duplicates change that by using
+ALTER TABLE SongsGenres 
+  ADD CONSTRAINT UQ_Entry UNIQUE (songId, genreId);
+*/
+SET @songName = "Heat Wave";
+SET @genreId = 12; -- Would have to pull this from somewhere... Not sure where depends on how we're transfering data.
+INSERT INTO SongsGenres VALUE ((SELECT songId FROM Songs WHERE songName = @songName), @genreId);
+
+-- Insert into SongsArtists
+/* This table currently allow duplicates change that by using
+ALTER TABLE SongsArtists 
+  ADD CONSTRAINT UQ_Entry UNIQUE (songId, artistId);
+*/
+SET @songTitle = "Heat Wave";
+SET @artistName = "Glass Animals";
+INSERT INTO SongsArtists VALUE ((SELECT songId FROM Songs WHERE songName = @songTitle), (SELECT artistId FROM Artists WHERE artistName = @artistName));

@@ -341,3 +341,15 @@ UNLOCK TABLES;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Updated to allow genres to be added without duplicates
+ALTER TABLE Genres 
+  ADD CONSTRAINT UQ_Genres UNIQUE (genreName);
+
+/*Updated to allow genres to be added without duplicates
+-- If we add this we'd need to update some insert querie and implement logicl to pull 
+-- the name and use that to insert instead potentially. IDK, it creates some annoying 
+-- problems. 
+ALTER TABLE Artists 
+  ADD CONSTRAINT UQ_Artist_Name UNIQUE (artistName);
+*/
