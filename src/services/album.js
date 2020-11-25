@@ -25,6 +25,26 @@ AlbumServices.getAllAlbums = () => {
     });
 };
 
+AlbumServices.getAllAlbumsByGenre = () => {
+    return new Promise((resolve, reject) => {
+        AlbumModel.getAllAlbumsByGenre()
+            .then((results) => {
+                var processedResults = []
+                results.forEach(element => {
+                    var processed = {
+                        "id": element.albumId,
+                        "name": element.albumName,
+                        "genre": element.genreName
+                    }
+                    processedResults.push(processed);
+                });
+                return { "results": processedResults }
+            })
+            .then(resolve)
+            .catch(reject);
+    });
+};
+
 AlbumServices.getAlbumsByGenre = (genreId) => {
     return new Promise((resolve, reject) => {
         AlbumModel.getAlbumsByGenre(genreId)
@@ -44,7 +64,7 @@ AlbumServices.getAlbumsByGenre = (genreId) => {
                         "genre": results[0].genreName, "results": processedResults
                     }
                 }
-                return processedResults;
+                return { "results": [] };
             })
             .then(resolve)
             .catch(reject);

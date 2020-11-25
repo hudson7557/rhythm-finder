@@ -9,6 +9,14 @@ Album.getAllAlbums = () => {
     });
 }
 
+Album.getAllAlbumsByGenre = () => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("AllAlbumsByGenre"), [])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 Album.getAlbumsByGenre = (genreId) => {
     return new Promise((resolve, reject) => {
         mysql.query(getQuery("getAlbumsByGenre"), [genreId])
@@ -21,14 +29,17 @@ function getQuery(type) {
     var query = "";
     switch(type) {
         case "allAlbums":
-            query = "SELECT a.albumId, a.albumName, gn.genreName \
-                FROM Albums a \
-                LEFT JOIN \
-                    (SELECT ag.albumId, g.genreName FROM AlbumsGenres ag \
-                    INNER JOIN Genres g ON g.genreId = ag.genreId) gn \
-                ON a.albumId = gn.albumId;"
+            query = "SELECT a.albumId, a.albumName \
+                FROM Albums a;"
             break;
-        case "getAlbumsByGenre":
+            case "AllAlbumsByGenre":
+                query = "SELECT a.albumId, a.albumName, gn.genreName \
+                    FROM Albums a LEFT JOIN \
+                    (SELECT ag.albumId, g.genreId, g.genreName FROM AlbumsGenres ag \
+                    INNER JOIN Genres g ON g.genreId = ag.genreId) gn ON \
+                    a.albumId = gn.albumId;"
+                break;
+            case "getAlbumsByGenre":
             query = "SELECT a.albumId, a.albumName, gn.genreName \
                 FROM Albums a LEFT JOIN \
                 (SELECT ag.albumId, g.genreId, g.genreName FROM AlbumsGenres ag \

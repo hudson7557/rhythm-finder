@@ -24,9 +24,32 @@ ArtistServices.getAllArtists = () => {
     });
 };
 
-ArtistServices.getAllArtistsByGenre = (genreId) => {
+ArtistServices.getAllArtistsByGenre = () => {
     return new Promise((resolve, reject) => {
-        ArtistModel.getAllArtistsByGenre(genreId)
+        ArtistModel.getAllArtistsByGenre()
+            .then((results) => {
+                var processedResults = [];
+                results.forEach(element => {
+                    var processed = {
+                        "id": element.artistId,
+                        "name": element.artistName,
+                        "genre": element.genreName
+                    }
+                    processedResults.push(processed);
+                });
+                if (results.length > 0) {
+                    return { "results": processedResults }
+                }
+                return { "results": [] };
+            })
+            .then(resolve)
+            .catch(reject);
+    });
+};
+
+ArtistServices.getArtistsByGenre = (genreId) => {
+    return new Promise((resolve, reject) => {
+        ArtistModel.getArtistsByGenre(genreId)
             .then((results) => {
                 var processedResults = []
                 results.forEach(element => {
@@ -41,7 +64,7 @@ ArtistServices.getAllArtistsByGenre = (genreId) => {
                         "genre": results[0].genreName, "results": processedResults
                     }
                 }
-                return processedResults;
+                return { "results": [] };
             })
             .then(resolve)
             .catch(reject);
