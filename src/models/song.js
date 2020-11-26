@@ -57,9 +57,17 @@ Song.getAllSongsByGenre = () => {
     });
 }
 
-Song.addSong = (song, artist, album) => {
+Song.addSong = (song, album, artist) => {
     return new Promise((resolve, reject) => {
-        mysql.query(getQuery("addSong"), [song, artist, album])
+        mysql.query(getQuery("addSong"), [song, album, artist])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
+Song.addSong1 = (song, artist) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("addSong1"), [song, artist])
             .then(resolve)
             .catch(reject);
     });
@@ -104,7 +112,7 @@ function getQuery(type) {
                     SELECT sar.songId, ar.artistName \
                     FROM SongsArtists sar \
                     INNER JOIN Artists ar ON ar.artistId = sar.artistId) an \
-                ON s.songId = an.songId;"
+                ON s.songId = an.songId GROUP BY songId;"
             break;
         case "AllSongsByArtist":
             query = "SELECT s.songId, s.songName, arn.artistName, arn.artistId \
@@ -147,6 +155,16 @@ function getQuery(type) {
                 FROM SongsArtists sar INNER JOIN Artists ar ON \
                 ar.artistId = sar.artistId) an ON s.songId = an.songId \
                 WHERE gn.genreId = ? ;"
+            break;
+        case "addSong":
+            query = "INSERT INTO Songs VALUE (NULL, ?, ?); \
+                SET @songId = LAST_INSERT_ID(); \
+                INSERT INTO SongsArtists VALUES (@songId, ?);"
+            break;
+        case "addSong1":
+            query = "INSERT INTO Songs VALUE (NULL, ?, NULL); \
+                SET @songId = LAST_INSERT_ID(); \
+                INSERT INTO SongsArtists VALUES (@songId, ?);"
             break;
         case "addSongArtist":
             query = "INSERT INTO SongsArtists VALUES (?, ?);"

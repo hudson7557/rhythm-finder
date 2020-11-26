@@ -232,12 +232,21 @@ SongServices.getSongsByGenre = (genreId) => {
 
 // Create Services
 
-SongServices.addSong = (song, artist, album) => {
-    return new Promise((resolve, reject) => {
-        SongModel.addSong(song, artist, album)
-        .then(resolve)
-        .catch(reject);
-    })
+SongServices.addSong = (song, album, artist) => {
+    if (album === "NULL") {
+        return new Promise((resolve, reject) => {
+            SongModel.addSong1(song, artist)
+            .then(resolve)
+            .catch(reject);
+        }) 
+    }
+    else {
+        return new Promise((resolve, reject) => {
+            SongModel.addSong(song, album, artist)
+            .then(resolve)
+            .catch(reject);
+        })
+    }
 }
 
 SongServices.addSongArtist = (song, artist) => {

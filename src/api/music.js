@@ -30,7 +30,6 @@ router.route("/songs")
     .get((req, res, next) => {
         SongServices.getSongs()
             .then((result) => {
-                
                 res.render("songs", {
                     "addSongs": true,
                     "header": "Songs",
@@ -44,8 +43,16 @@ router.route("/songs")
             .catch((err) => {
                 next(err);
             });
-    })
-// ADD POST ROUTE
+    }) 
+    .post((req, res, next) => {
+        SongServices.addSong(req.body.songName, req.body.albumName, req.body.artistName)
+            .then(() => {
+                res.redirect("/music/songs");
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
 
 router.route("/artists")
     .get((req, res, next) => {
