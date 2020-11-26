@@ -61,8 +61,9 @@ function getQuery(type) {
     var query = "";
     switch(type) {
         case "songs":
-            query = "SELECT s.songId, s.songName, a.albumName \
-            FROM Songs s INNER JOIN Albums a ON \
+            query = "SELECT s.songId, s.songName, \
+            IFNULL(a.albumName, 'NULL') AS albumName \
+            FROM Songs s LEFT JOIN Albums a ON \
             a.albumId = s.songAlbum;"
             break;
         case "allSongs":

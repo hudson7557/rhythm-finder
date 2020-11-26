@@ -1,9 +1,11 @@
 var faker = require('faker');
 var SongModel = require("../models/song");
+var ArtistModel = require("../models/artist");
+var AlbumModel = require("../models/album");
 var SongServices = {};
 
 SongServices.getSongs = () => {
-    return new Promise((resolve, reject) => {
+    var songs = new Promise((resolve, reject) => {
         SongModel.getSongs()
             .then((results) => {
                 var processedResults = []
@@ -20,6 +22,42 @@ SongServices.getSongs = () => {
             .then(resolve)
             .catch(reject);
     });
+
+    var artists = new Promise((resolve, reject) => {
+        ArtistModel.getAllArtists()
+            .then((results) => {
+                var processedResults = []
+                results.forEach(element => {
+                    var processed = {
+                        "artistId": element.artistId,
+                        "artistName": element.artistName,
+                    }
+                    processedResults.push(processed);
+                });
+                return processedResults;
+            })
+            .then(resolve)
+            .catch(reject);
+    });
+    
+    var albums = new Promise((resolve, reject) => {
+        AlbumModel.getAllAlbums()
+            .then((results) => {
+                var processedResults = []
+                results.forEach(element => {
+                    var processed = {
+                        "albumId": element.albumId,
+                        "albumName": element.albumName,
+                    }
+                    processedResults.push(processed);
+                });
+                return processedResults;
+            })
+            .then(resolve)
+            .catch(reject);
+    });
+
+    return Promise.all([songs, artists, albums])
 };
 
 SongServices.getAllSongs = () => {
@@ -45,9 +83,8 @@ SongServices.getAllSongs = () => {
             .catch(reject);
     });
 };
-
 SongServices.getAllSongsByArtist = () => {
-    return new Promise((resolve, reject) => {
+    var songs = new Promise((resolve, reject) => {
         SongModel.getAllSongsByArtist()
             .then((results) => {
                 var processedResults = []
@@ -59,11 +96,30 @@ SongServices.getAllSongsByArtist = () => {
                     }
                     processedResults.push(processed);
                 });
-                return { "results": processedResults }
+                return processedResults;
             })
             .then(resolve)
             .catch(reject);
     });
+
+    var artists = new Promise((resolve, reject) => {
+        ArtistModel.getAllArtists()
+            .then((results) => {
+                var processedResults = []
+                results.forEach(element => {
+                    var processed = {
+                        "artistId": element.artistId,
+                        "artistName": element.artistName,
+                    }
+                    processedResults.push(processed);
+                });
+                return processedResults;
+            })
+            .then(resolve)
+            .catch(reject);
+    });
+
+    return Promise.all([songs, artists]);
 };
 
 SongServices.getSongsByArtist = (artistId) => {
