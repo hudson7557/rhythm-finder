@@ -25,6 +25,14 @@ Artist.getArtistsByGenre = (genreId) => {
     });
 }
 
+Artist.createArtist = (artistName) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("createArtist"), [artistName])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -48,6 +56,9 @@ function getQuery(type) {
                     INNER JOIN Genres g ON g.genreId = ag.genreId) gn \
                 ON a.artistId = gn.artistId \
                 WHERE gn.genreId = ?;"
+            break;
+        case "createArtist":
+            query = "INSERT INTO Artists VALUE (NULL, ?);"
             break;
         }
 

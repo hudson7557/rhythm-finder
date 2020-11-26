@@ -9,4 +9,12 @@ GenreServices.getAllGenres = () => {
     });
 };
 
+GenreServices.createGenre = (genreName) => {
+    return new Promise((resolve, reject) => {
+        GenreModel.createGenre(genreName)
+        .then(resolve)
+        .catch(reject);
+    })
+}
+
 module.exports = GenreServices;

@@ -53,6 +53,15 @@ router.route("/artists")
             next(err);
         });
     })
+    .post((req, res, next) => {
+        ArtistServices.createArtist(req.body.artistName)
+            .then(function(result) {
+                res.redirect("/music/artists");
+            })
+            .catch(function(err) {
+                next(err);
+            });
+    });
 
 router.route("/albums")
     .get((req, res, next) => {
@@ -68,6 +77,15 @@ router.route("/albums")
                 next(err);
             });
         })
+    .post((req, res, next) => {
+        AlbumServices.createAlbum(req.body.albumName)
+            .then(function(result) {
+                res.redirect("/music/albums");
+            })
+            .catch(function(err) {
+                next(err);
+            });
+    });
 
 router.route("/genres")
     .get((req, res, next) => {
@@ -79,6 +97,15 @@ router.route("/genres")
                 next(err);
             });
         })
+    .post((req, res, next) => {
+        GenreServices.createGenre(req.body.genreName)
+            .then(function(result) {
+                res.redirect("/music/genres");
+            })
+            .catch(function(err) {
+                next(err);
+            });
+    });
 
 router.route("/albums-genre/:id")
     .get((req, res, next) => {
@@ -181,7 +208,7 @@ router.route("/songs-genre/:id")
             });
         }
         else {
-            res.render("albums", {
+            res.render("songs", {
                 "header": "No songs found under that genre"
             });
         }

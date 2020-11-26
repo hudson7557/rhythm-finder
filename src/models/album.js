@@ -25,6 +25,14 @@ Album.getAlbumsByGenre = (genreId) => {
     });
 }
 
+Album.createAlbum = (albumName) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("createAlbum"), [albumName])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -32,19 +40,22 @@ function getQuery(type) {
             query = "SELECT a.albumId, a.albumName \
                 FROM Albums a;"
             break;
-            case "AllAlbumsByGenre":
+        case "AllAlbumsByGenre":
                 query = "SELECT a.albumId, a.albumName, gn.genreName \
                     FROM Albums a LEFT JOIN \
                     (SELECT ag.albumId, g.genreId, g.genreName FROM AlbumsGenres ag \
                     INNER JOIN Genres g ON g.genreId = ag.genreId) gn ON \
                     a.albumId = gn.albumId;"
                 break;
-            case "getAlbumsByGenre":
+        case "getAlbumsByGenre":
             query = "SELECT a.albumId, a.albumName, gn.genreName \
                 FROM Albums a LEFT JOIN \
                 (SELECT ag.albumId, g.genreId, g.genreName FROM AlbumsGenres ag \
                 INNER JOIN Genres g ON g.genreId = ag.genreId) gn ON \
                 a.albumId = gn.albumId WHERE gn.genreId = ? ;"
+            break;
+        case "createAlbum":
+            query = "INSERT INTO Albums VALUE (NULL, ?);"
             break;
         }
 

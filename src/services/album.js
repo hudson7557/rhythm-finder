@@ -71,4 +71,12 @@ AlbumServices.getAlbumsByGenre = (genreId) => {
     });
 };
 
+AlbumServices.createAlbum = (albumName) => {
+    return new Promise((resolve, reject) => {
+        AlbumModel.createAlbum(albumName)
+        .then(resolve)
+        .catch(reject);
+    })
+}
+
 module.exports = AlbumServices;

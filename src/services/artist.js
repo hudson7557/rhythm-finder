@@ -71,4 +71,12 @@ ArtistServices.getArtistsByGenre = (genreId) => {
     });
 };
 
+ArtistServices.createArtist = (artistName) => {
+    return new Promise((resolve, reject) => {
+        ArtistModel.createArtist(artistName)
+        .then(resolve)
+        .catch(reject);
+    })
+}
+
 module.exports = ArtistServices;

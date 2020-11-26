@@ -1,6 +1,6 @@
 <div class="container my-4">
     <div class="row">
-        <h3 class="mx-auto">{{header}}</h3>
+        <h1 class="mx-auto">{{header}}</h1>
     </div>
     <div class="row justify-content-center align-items-center">
         {{#each items}}
@@ -21,5 +21,17 @@
             </div>
         </div>
         {{/each}}
+    </div>
+    <HR>
+    <div class="row my-3">
+        <h3 class="mx-auto">Add New Artist</h3>
+    </div>
+    <div class="row">
+        <div class="mx-auto">
+            <form method="POST" action="../music/artists">
+                <input type="text" name="artistName" placeholder="Artist Name" required>
+                <input class="btn btn-info btn-sm" type="submit" value="Add Artist">
+            </form>
+        </div>
     </div>
 </div>
