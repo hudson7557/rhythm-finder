@@ -2,7 +2,10 @@ var faker = require('faker');
 var SongModel = require("../models/song");
 var ArtistModel = require("../models/artist");
 var AlbumModel = require("../models/album");
+var GenreModel = require("../models/genre");
 var SongServices = {};
+
+// Read Services
 
 SongServices.getSongs = () => {
     var songs = new Promise((resolve, reject) => {
@@ -83,6 +86,7 @@ SongServices.getAllSongs = () => {
             .catch(reject);
     });
 };
+
 SongServices.getAllSongsByArtist = () => {
     var songs = new Promise((resolve, reject) => {
         SongModel.getAllSongsByArtist()
@@ -171,7 +175,7 @@ SongServices.getSongsByAlbum = (albumId) => {
 };
 
 SongServices.getAllSongsByGenre = () => {
-    return new Promise((resolve, reject) => {
+    var songs = new Promise((resolve, reject) => {
         SongModel.getAllSongsByGenre()
         .then((results) => {
             var processedResults = []
@@ -185,11 +189,19 @@ SongServices.getAllSongsByGenre = () => {
                 }
                 processedResults.push(processed);
             });
-            return { "results": processedResults }
+            return processedResults;
         })
         .then(resolve)
         .catch(reject);
     });
+
+    var genres = new Promise((resolve, reject) => {
+        GenreModel.getAllGenres()
+            .then(resolve)
+            .catch(reject);
+    });;
+
+    return Promise.all([songs, genres])
 };
 
 SongServices.getSongsByGenre = (genreId) => {
@@ -217,5 +229,31 @@ SongServices.getSongsByGenre = (genreId) => {
         .catch(reject);
     });
 };
+
+// Create Services
+
+SongServices.addSong = (song, artist, album) => {
+    return new Promise((resolve, reject) => {
+        SongModel.addSong(song, artist, album)
+        .then(resolve)
+        .catch(reject);
+    })
+}
+
+SongServices.addSongArtist = (song, artist) => {
+    return new Promise((resolve, reject) => {
+        SongModel.addSongArtist(song, artist)
+        .then(resolve)
+        .catch(reject);
+    })
+}
+
+SongServices.addSongGenre = (song, genre) => {
+    return new Promise((resolve, reject) => {
+        SongModel.addSongGenre(song, genre)
+        .then(resolve)
+        .catch(reject);
+    })
+}
 
 module.exports = SongServices;

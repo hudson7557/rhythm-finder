@@ -9,7 +9,7 @@ router.route("/")
     .get((req, res, next) => {
         SongServices.getAllSongs()
             .then((result) => {
-                console.log(result);
+                ;
                 res.render("songs", {
                     "items": result,
                     "header": "Songs: Detailed Information"
@@ -30,11 +30,12 @@ router.route("/songs")
     .get((req, res, next) => {
         SongServices.getSongs()
             .then((result) => {
-                console.log(result)
+                
                 res.render("songs", {
                     "addSongs": true,
                     "header": "Songs",
                     "formHeader": "Add New Song",
+                    "formAddress": "../music/songs",
                     "items": result[0],
                     "artists": result[1],
                     "albums": result[2]
@@ -44,16 +45,18 @@ router.route("/songs")
                 next(err);
             });
     })
+// ADD POST ROUTE
 
 router.route("/artists")
     .get((req, res, next) => {
     ArtistServices.getAllArtists()
         .then((result) => {
-            console.log(result);
+            ;
             res.render("artists", {
                 "items": result,
                 "header": "Artists",
-                "formHeader": "Add New Artist"
+                "formHeader": "Add New Artist",
+                "formAddress": "../music/artists",
             });
         })
         .catch((err) => {
@@ -62,10 +65,10 @@ router.route("/artists")
     })
     .post((req, res, next) => {
         ArtistServices.createArtist(req.body.artistName)
-            .then(function(result) {
+            .then(() => {
                 res.redirect("/music/artists");
             })
-            .catch(function(err) {
+            .catch((err) => {
                 next(err);
             });
     });
@@ -74,10 +77,12 @@ router.route("/albums")
     .get((req, res, next) => {
         AlbumServices.getAllAlbums()
             .then((result) => {
-                console.log(result);
+                ;
                 res.render("albums", {
+                    "header": "Albums",
+                    "formHeader": "Add New Album",
+                    "formAddress": "../music/albums",
                     "items": result,
-                    "header": "Albums"
                 });
             })
             .catch((err) => {
@@ -86,10 +91,10 @@ router.route("/albums")
         })
     .post((req, res, next) => {
         AlbumServices.createAlbum(req.body.albumName)
-            .then(function(result) {
+            .then(() => {
                 res.redirect("/music/albums");
             })
-            .catch(function(err) {
+            .catch((err) => {
                 next(err);
             });
     });
@@ -106,73 +111,47 @@ router.route("/genres")
         })
     .post((req, res, next) => {
         GenreServices.createGenre(req.body.genreName)
-            .then(function(result) {
+            .then(() => {
                 res.redirect("/music/genres");
-            })
-            .catch(function(err) {
-                next(err);
-            });
-    });
-
-router.route("/albums-genre/:id")
-    .get((req, res, next) => {
-        AlbumServices.getAlbumsByGenre(req.params.id)
-            .then((result) => {
-                if (result.results.length > 0) {
-                    console.log(result);
-                    res.render("albums", {
-                        "items": result.results,
-                        "header": `${result.genre} Albums`
-                    });
-                }
-                else {
-                    res.render("albums", {
-                        "header": "No albums found under that genre"
-                    });
-                }
             })
             .catch((err) => {
                 next(err);
             });
-        })
-
-router.route("/albums-genre/")
-    .get((req, res, next) => {
-        AlbumServices.getAllAlbumsByGenre()
-        .then((result) => {
-            console.log(result)
-            res.render("albums", {
-                "items": result.results,
-                "header": `Albums by Genre`
-            });
-        })
-        .catch((err) => {
-            next(err);
-        });
-    })  
+    });
 
 router.route("/artists-genre/")
     .get((req, res, next) => {
         ArtistServices.getAllArtistsByGenre()
         .then((result) => {
-            console.log(result)
             res.render("artists", {
-                "items": result.results,
+                "items": result[0],
+                "artists": result[0],
+                "genres": result[1],
                 "header": "Artists by Genre",
-                "formHeader": "Add Genre to Artist"
+                "formHeader": "Add Genre to Artist",
+                "formAddress": "../artists-genre"
             });
         })
         .catch((err) => {
             next(err);
         });
     })  
+    .post((req, res, next) => {
+        ArtistServices.addArtistGenre(req.body.artistName, req.body.genreName)
+            .then(() => {
+                res.redirect("/music/artists-genre");
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
 
 router.route("/artists-genre/:id")
-        .get((req, res, next) => {
+    .get((req, res, next) => {
         ArtistServices.getArtistsByGenre(req.params.id)
         .then((result) => {
             if (result.results.length > 0) {
-                console.log(result);
+                ;
                 res.render("artists", {
                     "items": result.results,
                     "header": `${result.genre} Artists`
@@ -191,29 +170,39 @@ router.route("/artists-genre/:id")
 
 router.route("/songs-genre/")
     .get((req, res, next) => {
-    SongServices.getAllSongsByGenre()
-    .then((result) => {
-        console.log(result);
-        res.render("songs", {
-            "items": result.results,
-            "addSongs": true,
-            "header": "Songs by Genre",
-            "formHeader": "Add Genre to Song",
-            "songs": result.results,
-            "genres": true
+        SongServices.getAllSongsByGenre()
+        .then((result) => {
+            ;
+            res.render("songs", {
+                "items": result[0],
+                "addSongs": true,
+                "header": "Songs by Genre",
+                "formHeader": "Add Genre to Song",
+                "formAddress": "../songs-genre",
+                "songs": result[0],
+                "genres": result[1]
+            });
+        })
+        .catch((err) => {
+            next(err);
         });
-    })
-    .catch((err) => {
-        next(err);
+    })  
+    .post((req, res, next) => {
+        SongServices.addSongGenre(req.body.songName, req.body.genreName)
+            .then(() => {
+                res.redirect("/music/songs-genre");
+            })
+            .catch((err) => {
+                next(err);
+            });
     });
-})  
 
 router.route("/songs-genre/:id")
     .get((req, res, next) => {
     SongServices.getSongsByGenre(req.params.id)
     .then((result) => {
         if (result.results.length > 0) {
-            console.log(result);
+            ;
             res.render("songs", {
                 "items": result.results,
                 "header": `${result.genre} Songs`
@@ -234,27 +223,37 @@ router.route("/songs-artist/")
     .get((req, res, next) => {
         SongServices.getAllSongsByArtist()
             .then((result) => {
-                console.log(result);
+                ;
                 res.render("songs", {
                     "songs": result[0],
                     "artists": result[1],
                     "items": result[0],
                     "addSongs": true,
-                    "header": "All Songs by Artists",
-                    "formHeader": "Add Artist to Song"
+                    "header": "Songs by Artists",
+                    "formHeader": "Add Artist to Song",
+                    "formAddress": "../songs-artist"
                 });
             })
             .catch((err) => {
                 next(err);
             });
         })
+    .post((req, res, next) => {
+        SongServices.addSongArtist(req.body.songName, req.body.artistName)
+            .then(() => {
+                res.redirect("/music/songs-artist");
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
 
 router.route("/songs-artist/:id")
     .get((req, res, next) => {
         SongServices.getSongsByArtist(req.params.id)
             .then((result) => {
                 if (result.results.length > 0) {
-                    console.log(result);
+                    ;
                     res.render("songs", {
                         "items": result.results,
                         "header": `Songs By ${result.artist}`
@@ -276,7 +275,7 @@ router.route("/songs-album/:id")
         SongServices.getSongsByAlbum(req.params.id)
             .then((result) => {
                 if (result.results.length > 0) {
-                    console.log(result);
+                    ;
                     res.render("songs", {
                         "items": result.results,
                         "header": `Songs in ${result.album}`
@@ -292,5 +291,55 @@ router.route("/songs-album/:id")
                 next(err);
             });
         })
-        
+            
+router.route("/albums-genre/")
+    .get((req, res, next) => {
+        AlbumServices.getAllAlbumsByGenre()
+        .then((result) => {
+            
+            res.render("albums", {
+                "header": "Albums by Genre",
+                "formHeader": "Add Genre to Album",
+                "formAddress": "../music/albums-genre",
+                "items": result[0],
+                "albums": result[0],
+                "genres": result[1]
+        });
+        })
+        .catch((err) => {
+            next(err);
+        });
+    })  
+    .post((req, res, next) => {
+        AlbumServices.addAlbumGenre(req.body.albumName, req.body.genreName)
+            .then(() => {
+                res.redirect("/music/albums-genre");
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
+
+router.route("/albums-genre/:id")
+    .get((req, res, next) => {
+        AlbumServices.getAlbumsByGenre(req.params.id)
+            .then((result) => {
+                if (result.results.length > 0) {
+                    ;
+                    res.render("albums", {
+                        "items": result.results,
+                        "header": `${result.genre} Albums`
+                    });
+                }
+                else {
+                    res.render("albums", {
+                        "header": "No albums found under that genre"
+                    });
+                }
+            })
+            .catch((err) => {
+                next(err);
+            });
+        })
+
 module.exports = router;

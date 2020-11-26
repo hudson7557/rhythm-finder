@@ -1,6 +1,8 @@
 var mysql = require("../config/mysql");
 var Album = {};
 
+// Read
+
 Album.getAllAlbums = () => {
     return new Promise((resolve, reject) => {
         mysql.query(getQuery("allAlbums"), [])
@@ -25,9 +27,19 @@ Album.getAlbumsByGenre = (genreId) => {
     });
 }
 
+// Create
+
 Album.createAlbum = (albumName) => {
     return new Promise((resolve, reject) => {
         mysql.query(getQuery("createAlbum"), [albumName])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
+Album.addAlbumGenre = (album, genre) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("addAlbumGenre"), [album, genre])
             .then(resolve)
             .catch(reject);
     });
@@ -56,6 +68,9 @@ function getQuery(type) {
             break;
         case "createAlbum":
             query = "INSERT INTO Albums VALUE (NULL, ?);"
+            break;
+        case "addAlbumGenre":
+            query = "INSERT INTO AlbumsGenres VALUES (?, ?);"
             break;
         }
 

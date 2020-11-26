@@ -1,6 +1,9 @@
 var faker = require('faker');
 var ArtistModel = require("../models/artist");
+var GenreModel = require("../models/genre");
 var ArtistServices = {};
+
+// Read Services
 
 ArtistServices.getAllArtists = () => {
     return new Promise((resolve, reject) => {
@@ -25,7 +28,7 @@ ArtistServices.getAllArtists = () => {
 };
 
 ArtistServices.getAllArtistsByGenre = () => {
-    return new Promise((resolve, reject) => {
+    var artists = new Promise((resolve, reject) => {
         ArtistModel.getAllArtistsByGenre()
             .then((results) => {
                 var processedResults = [];
@@ -37,14 +40,19 @@ ArtistServices.getAllArtistsByGenre = () => {
                     }
                     processedResults.push(processed);
                 });
-                if (results.length > 0) {
-                    return { "results": processedResults }
-                }
-                return { "results": [] };
+                return processedResults;
             })
             .then(resolve)
             .catch(reject);
     });
+
+    var genres = new Promise((resolve, reject) => {
+        GenreModel.getAllGenres()
+            .then(resolve)
+            .catch(reject);
+    });;
+
+    return Promise.all([artists, genres]);
 };
 
 ArtistServices.getArtistsByGenre = (genreId) => {
@@ -71,6 +79,8 @@ ArtistServices.getArtistsByGenre = (genreId) => {
     });
 };
 
+// Create Services
+
 ArtistServices.createArtist = (artistName) => {
     return new Promise((resolve, reject) => {
         ArtistModel.createArtist(artistName)
@@ -78,5 +88,14 @@ ArtistServices.createArtist = (artistName) => {
         .catch(reject);
     })
 }
+
+ArtistServices.addArtistGenre = (artist, genre) => {
+    return new Promise((resolve, reject) => {
+        ArtistModel.addArtistGenre(artist, genre)
+        .then(resolve)
+        .catch(reject);
+    })
+}
+
 
 module.exports = ArtistServices;

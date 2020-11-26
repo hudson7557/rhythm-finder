@@ -33,6 +33,14 @@ Artist.createArtist = (artistName) => {
     });
 }
 
+Artist.addArtistGenre = (artist, genre) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("addArtistGenre"), [artist, genre])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -59,6 +67,9 @@ function getQuery(type) {
             break;
         case "createArtist":
             query = "INSERT INTO Artists VALUE (NULL, ?);"
+            break;
+        case "addArtistGenre":
+            query = "INSERT INTO ArtistsGenres VALUE (?, ?);"
             break;
         }
 

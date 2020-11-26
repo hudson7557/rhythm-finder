@@ -57,6 +57,30 @@ Song.getAllSongsByGenre = () => {
     });
 }
 
+Song.addSong = (song, artist, album) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("addSong"), [song, artist, album])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
+Song.addSongArtist = (song, artist) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("addSongArtist"), [song, artist])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
+Song.addSongGenre = (song, genre) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("addSongGenre"), [song, genre])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -82,14 +106,14 @@ function getQuery(type) {
                     INNER JOIN Artists ar ON ar.artistId = sar.artistId) an \
                 ON s.songId = an.songId;"
             break;
-            case "AllSongsByArtist":
-                query = "SELECT s.songId, s.songName, arn.artistName, arn.artistId \
-                    FROM Songs s LEFT JOIN \
-                    (SELECT sar.songId, ar.artistName, ar.artistId FROM Artists ar \
-                    INNER JOIN SongsArtists sar ON sar.artistId = ar.artistId) \
-                    arn ON s.songId = arn.songId;"
-                break;
-            case "SongsByArtist":
+        case "AllSongsByArtist":
+            query = "SELECT s.songId, s.songName, arn.artistName, arn.artistId \
+                FROM Songs s LEFT JOIN \
+                (SELECT sar.songId, ar.artistName, ar.artistId FROM Artists ar \
+                INNER JOIN SongsArtists sar ON sar.artistId = ar.artistId) \
+                arn ON s.songId = arn.songId;"
+            break;
+        case "SongsByArtist":
             query = "SELECT s.songId, s.songName, arn.artistName, arn.artistId \
                 FROM Songs s LEFT JOIN \
                 (SELECT sar.songId, ar.artistName, ar.artistId FROM Artists ar \
@@ -102,15 +126,15 @@ function getQuery(type) {
                 a.albumId = s.songAlbum \
                 WHERE a.albumId = ? ;"
             break;
-            case "allSongsByGenre":
-                query = "SELECT s.songId, s.songName, gn.genreName \
-                    FROM Songs s \
-                    LEFT JOIN(SELECT sg.songId, g.genreName, g.genreId \
-                    FROM SongsGenres sg \
-                    INNER JOIN Genres g ON g.genreId = sg.genreId) gn \
-                    ON s.songId = gn.songId;"
-                break;
-            case "SongsByGenre":
+        case "allSongsByGenre":
+            query = "SELECT s.songId, s.songName, gn.genreName \
+                FROM Songs s \
+                LEFT JOIN(SELECT sg.songId, g.genreName, g.genreId \
+                FROM SongsGenres sg \
+                INNER JOIN Genres g ON g.genreId = sg.genreId) gn \
+                ON s.songId = gn.songId;"
+            break;
+        case "SongsByGenre":
             query = "SELECT s.songId, s.songName, an.artistName, \
                 IFNULL(a.albumName, 'NULL') AS albumName, gn.genreName \
                 FROM Songs s \
@@ -123,6 +147,12 @@ function getQuery(type) {
                 FROM SongsArtists sar INNER JOIN Artists ar ON \
                 ar.artistId = sar.artistId) an ON s.songId = an.songId \
                 WHERE gn.genreId = ? ;"
+            break;
+        case "addSongArtist":
+            query = "INSERT INTO SongsArtists VALUES (?, ?);"
+            break;
+        case "addSongGenre":
+            query = "INSERT INTO SongsGenres VALUES (?, ?);"
             break;
         }
 

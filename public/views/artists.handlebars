@@ -27,9 +27,24 @@
     </div>
     <div class="row">
         <div class="mx-auto">
-            <form method="POST" action="../music/artists">
+            <form method="POST" action={{formAddress}}>
+                {{#if artists}}
+                <select name="artistName" required>
+                    <option>--Choose Artist--</option>
+                    {{#each artists}}
+                    <option value={{id}}>{{name}}</option>
+                    {{/each}}
+                </select>
+                <select name="genreName" required>
+                    <option>--Choose Genre--</option>
+                    {{#each genres}}
+                    <option value={{genreId}}>{{genreName}}</option>
+                    {{/each}}
+                </select>
+                {{else}}
                 <input type="text" name="artistName" placeholder="Artist Name" required>
-                <input class="btn btn-info btn-sm" type="submit" value="Add Artist">
+                {{/if}}
+                <input class="btn btn-info btn-sm" type="submit" value="Add">
             </form>
         </div>
     </div>

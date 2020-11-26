@@ -1,6 +1,9 @@
 var faker = require('faker');
 var AlbumModel = require("../models/album");
+var GenreModel = require("../models/genre");
 var AlbumServices = {};
+
+// Read Services
 
 AlbumServices.getAllAlbums = () => {
     return new Promise((resolve, reject) => {
@@ -26,7 +29,7 @@ AlbumServices.getAllAlbums = () => {
 };
 
 AlbumServices.getAllAlbumsByGenre = () => {
-    return new Promise((resolve, reject) => {
+    var albums = new Promise((resolve, reject) => {
         AlbumModel.getAllAlbumsByGenre()
             .then((results) => {
                 var processedResults = []
@@ -38,11 +41,19 @@ AlbumServices.getAllAlbumsByGenre = () => {
                     }
                     processedResults.push(processed);
                 });
-                return { "results": processedResults }
+                return processedResults;
             })
             .then(resolve)
             .catch(reject);
     });
+
+    var genres = new Promise((resolve, reject) => {
+        GenreModel.getAllGenres()
+            .then(resolve)
+            .catch(reject);
+    });;
+
+    return Promise.all([albums, genres]);
 };
 
 AlbumServices.getAlbumsByGenre = (genreId) => {
@@ -71,9 +82,19 @@ AlbumServices.getAlbumsByGenre = (genreId) => {
     });
 };
 
+// Create Services
+
 AlbumServices.createAlbum = (albumName) => {
     return new Promise((resolve, reject) => {
         AlbumModel.createAlbum(albumName)
+        .then(resolve)
+        .catch(reject);
+    })
+}
+
+AlbumServices.addAlbumGenre = (album, genre) => {
+    return new Promise((resolve, reject) => {
+        AlbumModel.addAlbumGenre(album, genre)
         .then(resolve)
         .catch(reject);
     })
