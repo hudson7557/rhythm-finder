@@ -1,0 +1,33 @@
+<div class="container my-4">
+    <div class="row">
+        <h1 class="mx-auto">All Songs to Users</h1>
+    </div>
+    <div class="row justify-content-center align-items-center">
+        {{#each items}}
+            {{userName}} - {{name}} <BR>
+        {{/each}}
+    </div>
+    <HR>
+    <div class="row my-3">
+        <h3 class="mx-auto">Add Song to User Profile</h3>
+    </div>
+    <div class="row">
+        <div class="mx-auto">
+            <form method="POST" action={{formAddress}}>
+                <select name="songName" required>
+                    <option>--Choose Song--</option>
+                    {{#each songs}}
+                    <option value={{id}}>{{name}}</option>
+                    {{/each}}
+                </select>                
+                <select name="userName" required>
+                    <option>--Choose User--</option>
+                    {{#each users}}
+                    <option value={{userId}}>{{userName}}</option>
+                    {{/each}}
+                </select>
+                <input class="btn btn-info btn-sm" type="submit" value="Add">
+            </form>
+        </div>
+    </div>
+</div>

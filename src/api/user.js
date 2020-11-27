@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var UserServices = require("../services/user");
 
-router.route("/all")
+router.route("/")
     .get((req, res, next) => {
         UserServices.getAllUsers()
             .then((result) => {
@@ -30,22 +30,31 @@ router.route("/:id")
             });
 })
 
-
-router.route("/music")
-    .get((req, res) => {
-        res.render("user-music");
+router.route("/songs/all")
+    .get((req, res, next) => {
+        UserServices.getAllUsersSongs()
+            .then((result) => {
+                console.log(result);
+                res.render("user-songs", {
+                    "items": result[0],
+                    "songs": result[1],
+                    "users": result[2],
+                    "formAddress": "http://localhost:3306/user/songs/all"
+                });
+            })
+            .catch((err) => {
+                next(err);
+            });
+    })
+    .post((req, res, next) => {
+        UserServices.addUserSong(req.body.songName, req.body.userName)
+            .then(() => {
+                res.redirect("/user/songs/all");
+            })
+            .catch((err) => {
+                next(err);
+            });
     });
-
-router.route("/profile")
-.get((req, res, next) => {
-    UserServices.getUser()
-        .then((result) => {
-            res.render("user-profile", { "user": result });
-        })
-        .catch((err) => {
-            next(err);
-        });
-});
 
 
 
