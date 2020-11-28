@@ -65,6 +65,14 @@ User.deleteUser = (user) => {
     });
 }
 
+User.deleteUserSong = (user, song) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("deleteUserSong"), [user, song])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -103,6 +111,9 @@ function getQuery(type) {
             break;
         case "deleteUser":
             query = "DELETE FROM Users WHERE userId = ?;"
+            break;
+        case "deleteUserSong":
+            query = "DELETE FROM UsersSongs WHERE userId = ? and songId = ?;"
             break;
         }
     return query;

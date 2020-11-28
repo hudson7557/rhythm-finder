@@ -1,10 +1,21 @@
 <div class="container my-4">
     <div class="row">
-        <h1 class="mx-auto">All Songs to Users</h1>
+        <h1 class="mx-auto">All Users' Songs</h1>
     </div>
-    <div class="row justify-content-center align-items-center">
+    <div class="container">
         {{#each items}}
-            {{userName}} - {{name}} <BR>
+            <div class="row justify-content-start my-2">
+                <div class="col-4 offset-3">
+                    {{userName}} - {{name}} &nbsp;
+                </div>
+                <div class="col-2">
+                    <form action="/user/delete/user-song/" method="post">
+                        <input hidden value={{id}} name="songId">
+                        <input hidden value={{userId}} name="userId">
+                        <small><input class="" type="submit" value="Delete Entry"></small>
+                    </form>
+                </div>
+            </div>
         {{/each}}
     </div>
     <HR>
@@ -14,18 +25,18 @@
     <div class="row">
         <div class="mx-auto">
             <form method="POST" action={{formAddress}}>
-                <select name="songName" required>
-                    <option>--Choose Song--</option>
-                    {{#each songs}}
-                    <option value={{id}}>{{name}}</option>
-                    {{/each}}
-                </select>                
                 <select name="userName" required>
                     <option>--Choose User--</option>
                     {{#each users}}
                     <option value={{userId}}>{{userName}}</option>
                     {{/each}}
                 </select>
+                <select name="songName" required>
+                    <option>--Choose Song--</option>
+                    {{#each songs}}
+                    <option value={{id}}>{{name}}</option>
+                    {{/each}}
+                </select>                
                 <input class="btn btn-info btn-sm" type="submit" value="Add">
             </form>
         </div>

@@ -92,5 +92,15 @@ router.route("/delete/user")
             });
     });
 
+router.route("/delete/user-song")
+    .post((req, res, next) => {
+        UserServices.deleteUserSong(req.body.userId, req.body.songId)
+            .then(() => {
+                res.redirect("/user/songs/all");
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
 
 module.exports = router;
