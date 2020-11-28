@@ -8,7 +8,11 @@ router.route("/")
             .then((result) => {
                 console.log("get all users: ");
                 console.log(result);
-                res.render("all-users", { "items": result });
+                res.render("all-users", {
+                    "items": result,
+                    "updateFormAddress":
+                        "http://localhost:3306/user/update/email",
+                });
             })
             .catch((err) => {
                 next(err);
@@ -66,6 +70,27 @@ router.route("/songs/all")
             });
     });
 
+router.route("/update/email")
+    .post((req, res, next) => {
+        UserServices.updateEmail(req.body.email, req.body.userId)
+            .then(() => {
+                res.redirect("/user/");
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
+
+router.route("/delete/user")
+    .post((req, res, next) => {
+        UserServices.deleteUser(req.body.userId)
+            .then(() => {
+                res.redirect("/user/");
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
 
 
 module.exports = router;

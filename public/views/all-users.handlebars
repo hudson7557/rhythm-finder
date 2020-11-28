@@ -20,9 +20,30 @@
                     {{userEmail}} 
                     <BR> {{userPassword}}
                 </p>
-                <small><a href="#">Update Email</a></small>
+                <form method="POST" action="http://localhost:3306/user/delete/user">
+                    <input name="userId" value={{userId}} hidden>
+                    <input class="btn btn-danger btn-sm" type="submit" value="Delete User">
+                </form>
             </div>
         </div>
         {{/each}}
+    </div>
+    <HR>
+    <div class="row my-3">
+        <h3 class="mx-auto">Update User Email</h3>
+    </div>
+    <div class="row">
+        <div class="mx-auto">
+            <form method="POST" action={{updateFormAddress}}>
+                <select name="userId" required>
+                    <option>--Choose User--</option>
+                    {{#each items}}
+                    <option value={{userId}}>{{userName}}</option>
+                    {{/each}}
+                </select>
+                <input type="email" name="email" placeholder="New Email">
+                <input class="btn btn-info btn-sm" type="submit" value="Update">
+            </form>
+        </div>
     </div>
 </div>

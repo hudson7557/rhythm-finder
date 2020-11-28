@@ -49,6 +49,22 @@ User.addUserSong = (song, user) => {
     });
 }
 
+User.updateEmail = (email, user) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("updateEmail"), [email, user])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
+User.deleteUser = (user) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("deleteUser"), [user])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 function getQuery(type) {
     var query = "";
     switch(type) {
@@ -82,7 +98,13 @@ function getQuery(type) {
         case "addUser":
             query = "INSERT INTO `Users` VALUE (NULL, ?, ?, ?);"
             break;
-        } 
+        case "updateEmail":
+            query = "UPDATE Users SET userEmail = ? WHERE userId = ?;"
+            break;
+        case "deleteUser":
+            query = "DELETE FROM Users WHERE userId = ?;"
+            break;
+        }
     return query;
 };
 

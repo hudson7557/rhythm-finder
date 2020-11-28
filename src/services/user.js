@@ -107,10 +107,25 @@ UserServices.addUser = (name, email, password) => {
     });
 };
 
-
 UserServices.addUserSong = (song, user) => {
     return new Promise((resolve, reject) => {
         UserModel.addUserSong(song, user)
+            .then(resolve)
+            .catch(reject);
+    });
+};
+
+UserServices.updateEmail = (email, user) => {
+    return new Promise((resolve, reject) => {
+        UserModel.updateEmail(email, user)
+            .then(resolve)
+            .catch(reject);
+    });
+};
+
+UserServices.deleteUser = (user) => {
+    return new Promise((resolve, reject) => {
+        UserModel.deleteUser(user)
             .then(resolve)
             .catch(reject);
     });

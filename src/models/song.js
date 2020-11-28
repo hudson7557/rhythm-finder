@@ -140,7 +140,8 @@ function getQuery(type) {
                 LEFT JOIN(SELECT sg.songId, g.genreName, g.genreId \
                 FROM SongsGenres sg \
                 INNER JOIN Genres g ON g.genreId = sg.genreId) gn \
-                ON s.songId = gn.songId;"
+                ON s.songId = gn.songId \
+                ORDER BY gn.genreName;"
             break;
         case "SongsByGenre":
             query = "SELECT s.songId, s.songName, an.artistName, \
