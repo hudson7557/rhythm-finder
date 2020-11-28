@@ -14,6 +14,16 @@ router.route("/")
                 next(err);
             });
 })
+    .post((req, res, next) => {
+        UserServices.addUser(req.body.name,
+            req.body.email, req.body.password)
+            .then(() => {
+                res.redirect("/user/");
+            })
+            .catch((err) => {
+                next(err);
+            });
+    });
 
 router.route("/:id")
     .get((req, res, next) => {

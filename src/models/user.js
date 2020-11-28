@@ -33,6 +33,14 @@ User.getUser = () => {
     });
 }
 
+User.addUser = (name, email, password) => {
+    return new Promise((resolve, reject) => {
+        mysql.query(getQuery("addUser"), [name, email, password])
+            .then(resolve)
+            .catch(reject);
+    });
+}
+
 User.addUserSong = (song, user) => {
     return new Promise((resolve, reject) => {
         mysql.query(getQuery("addUserSong"), [song, user])
@@ -70,6 +78,9 @@ function getQuery(type) {
             break;
         case "addUserSong":
             query = "INSERT INTO UsersSongs VALUES (?, ?);"
+            break;
+        case "addUser":
+            query = "INSERT INTO `Users` VALUE (NULL, ?, ?, ?);"
             break;
         } 
     return query;

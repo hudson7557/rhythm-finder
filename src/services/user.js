@@ -99,17 +99,10 @@ UserServices.getUser = () => {
 
 // Create services
 
-UserServices.addUser = () => {
+UserServices.addUser = (name, email, password) => {
     return new Promise((resolve, reject) => {
-        UserModel.addUser()
-            .then((result) => {
-                var user = {
-                    userId: result[0]['userId'],
-                    userName: result[0]['userName'],
-                    userEmail: result[0]['userEmail']
-                }
-                resolve(user);
-            })
+        UserModel.addUser(name, email, password)
+            .then(resolve)
             .catch(reject);
     });
 };

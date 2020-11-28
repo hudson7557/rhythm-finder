@@ -57,7 +57,8 @@ function getQuery(type) {
                     FROM Albums a LEFT JOIN \
                     (SELECT ag.albumId, g.genreId, g.genreName FROM AlbumsGenres ag \
                     INNER JOIN Genres g ON g.genreId = ag.genreId) gn ON \
-                    a.albumId = gn.albumId;"
+                    a.albumId = gn.albumId \
+                    ORDER BY gn.genreName;"
                 break;
         case "getAlbumsByGenre":
             query = "SELECT a.albumId, a.albumName, gn.genreName \
