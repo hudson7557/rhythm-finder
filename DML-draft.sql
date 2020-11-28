@@ -297,3 +297,15 @@ ALTER TABLE SongsArtists
 SET @songTitle = "Heat Wave";
 SET @artistName = "Glass Animals";
 INSERT INTO SongsArtists VALUE ((SELECT songId FROM Songs WHERE songName = @songTitle), (SELECT artistId FROM Artists WHERE artistName = @artistName));
+
+-- Insert into Users
+/* This table already doesn't allow duplicate emails so no alter statement needed.
+*/
+SET @userName = "Kona";
+SET @userEmail = "kona@email.com";
+SET @userPassword = "password";
+
+INSERT INTO `Users` VALUE (NULL, @userName, @userEmail, @userPassword);
+
+-- Final 
+INSERT INTO `Users` VALUE (NULL, ?, ?, ?);
