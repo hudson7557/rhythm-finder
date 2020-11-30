@@ -85,7 +85,7 @@ function getQuery(type) {
         case "getUserSongs":
             query = "SELECT u.userId, u.userName, sn.songName, sn.songId \
                 FROM Users u \
-                LEFT JOIN( \
+                INNER JOIN( \
                     SELECT us.songId, us.userId, s.songName FROM UsersSongs us \
                     JOIN Songs s ON s.songId = us.songId) sn \
                 ON u.userId = sn.userId \
